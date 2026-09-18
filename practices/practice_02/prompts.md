@@ -85,3 +85,17 @@
 
 - Сверены строки в problem.md:9 и 24-29 с содержанием документа.
 - Сопоставлены правила и ожидания в prompts.md:113-119; context.md:54-60; adr.md:13-18; analysis.md:13-16; product_management.md:20; project_management.md:7; tests_integration.md:6; tests_load.md:5; tests_e2e.md:7.
+Файл ведёт OpenCode по вашим запросам. Агент записывает фактические результаты экспериментов и вносит изменения в связанные файлы. Свою оценку сообщайте ему в чате; вручную заполнять шаблон не нужно.
+
+- Выбранный слабый артефакт Практики 1:
+- Что в нём нужно улучшить:
+- Как поймём, что изменение полезно:
+
+| Техника | Файл эксперимента | Изменённый файл Практики 1 | Конкретное изменение | Проверка | Что отклонили |
+|---|---|---|---|---|---|
+| Few-shot | [`few_shot/experiment.md`](few_shot/experiment.md) |  |  |  |  |
+| R.C.T.F. | [`rctf/experiment.md`](rctf/experiment.md) |  |  |  |  |
+| Chain of Verification | [`chain_of_verification/experiment.md`](chain_of_verification/experiment.md) |  |  |  |  |
+| Tree of Thoughts | [`tree_of_thoughts/experiment.md`](tree_of_thoughts/experiment.md) |  |  |  |  |
+| RAG | [`rag/experiment.md`](rag/experiment.md) |  |  |  |  |
+| ReAct | [`react/experiment.md`](react/experiment.md) |  |  |  |  |
