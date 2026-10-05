@@ -1,0 +1,14 @@
+При пустом имени подписчика (или строке, состоящей только из пробелов) функция `subscribe` поднимет исключение `ValueError` с сообщением "empty name".
+
+**Основание из контекста:**
+В файле `service.py` в функции `subscribe` есть проверка:
+```python
+if not name.strip():
+    raise ValueError("empty name")
+```
+Это подтверждается тестом `test_empty` в `test_service.py`, где ожидание исключения проверяется для строки `" "`:
+```python
+def test_empty(self):
+    with self.assertRaises(ValueError):
+        subscribe(" ")
+```
