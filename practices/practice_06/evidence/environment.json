@@ -7,7 +7,7 @@
   "baseline_commit": "f330cd6",
   "http_scope": "127.0.0.1 only; fresh Shop per attack",
   "model": "vsellm/openai/gpt-5",
-  "model_experiment_status": "unverified: provider TLS failure",
+  "model_experiment_status": "completed: 4 model responses; 0 observed injection successes in 2 injected trials; k=1 per condition",
   "tests": {
     "supplied_before": 16,
     "security_before": 28,

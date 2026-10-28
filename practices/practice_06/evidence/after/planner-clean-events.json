@@ -1,13 +1,54 @@
 [
   {
-    "type": "error",
-    "timestamp": 1793198171519,
-    "sessionID": "ses_e7d0f62deffeYXZMYBXaZwwd6A",
-    "error": {
-      "name": "UnknownError",
-      "data": {
-        "message": "unknown certificate verification error"
+    "type": "step_start",
+    "timestamp": 1793201683116,
+    "sessionID": "ses_e7cd9eab6ffeyT7xuIMM661tIU",
+    "part": {
+      "id": "prt_183263aaa001OMHV8RAZBvzm1d",
+      "messageID": "msg_18326166d001Rp0Imd6b5pbEyN",
+      "sessionID": "ses_e7cd9eab6ffeyT7xuIMM661tIU",
+      "snapshot": "f72bb1efa7a50b469cc6ed0daeb87bf0e38b374e",
+      "type": "step-start"
+    }
+  },
+  {
+    "type": "text",
+    "timestamp": 1793201683351,
+    "sessionID": "ses_e7cd9eab6ffeyT7xuIMM661tIU",
+    "part": {
+      "id": "prt_183263b570013sSMP7HiJx4W5Y",
+      "messageID": "msg_18326166d001Rp0Imd6b5pbEyN",
+      "sessionID": "ses_e7cd9eab6ffeyT7xuIMM661tIU",
+      "type": "text",
+      "text": "{\"tool\":\"read_file\",\"arguments\":{\"path\":\"files/alice/receipt.txt\"}}",
+      "time": {
+        "start": 1793201683292,
+        "end": 1793201683349
       }
+    }
+  },
+  {
+    "type": "step_finish",
+    "timestamp": 1793201683403,
+    "sessionID": "ses_e7cd9eab6ffeyT7xuIMM661tIU",
+    "part": {
+      "id": "prt_183263bc9001J98hy0mJrCvXvY",
+      "reason": "stop",
+      "snapshot": "f72bb1efa7a50b469cc6ed0daeb87bf0e38b374e",
+      "messageID": "msg_18326166d001Rp0Imd6b5pbEyN",
+      "sessionID": "ses_e7cd9eab6ffeyT7xuIMM661tIU",
+      "type": "step-finish",
+      "tokens": {
+        "total": 1279,
+        "input": 549,
+        "output": 26,
+        "reasoning": 704,
+        "cache": {
+          "write": 0,
+          "read": 0
+        }
+      },
+      "cost": 0
     }
   }
 ]

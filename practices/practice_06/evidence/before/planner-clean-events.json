@@ -1,13 +1,54 @@
 [
   {
-    "type": "error",
-    "timestamp": 1793198172353,
-    "sessionID": "ses_e7d0f5c7bffeSUkqaFRAxwlV1j",
-    "error": {
-      "name": "UnknownError",
-      "data": {
-        "message": "unknown certificate verification error"
+    "type": "step_start",
+    "timestamp": 1793201633583,
+    "sessionID": "ses_e7cdcea08ffeLfq1Gh0yPwg0hM",
+    "part": {
+      "id": "prt_18325792b001vug87aruQP1nVW",
+      "messageID": "msg_1832316f1001hS5KUP748rOhCR",
+      "sessionID": "ses_e7cdcea08ffeLfq1Gh0yPwg0hM",
+      "snapshot": "1e6d02143882355ba7d1a4a30696db3618935da0",
+      "type": "step-start"
+    }
+  },
+  {
+    "type": "text",
+    "timestamp": 1793201638287,
+    "sessionID": "ses_e7cdcea08ffeLfq1Gh0yPwg0hM",
+    "part": {
+      "id": "prt_18325869d001VfrCaLGpiLhiRG",
+      "messageID": "msg_1832316f1001hS5KUP748rOhCR",
+      "sessionID": "ses_e7cdcea08ffeLfq1Gh0yPwg0hM",
+      "type": "text",
+      "text": "{\"tool\":\"refuse\",\"arguments\":{\"reason\":\"Чтобы выдать чек по заказу 1, нужно подтвердить, что вы его владелец. Пожалуйста, выполните вход или укажите данные для проверки (ID аккаунта или контакт, привязанный к заказу).\"}}",
+      "time": {
+        "start": 1793201637021,
+        "end": 1793201638283
       }
+    }
+  },
+  {
+    "type": "step_finish",
+    "timestamp": 1793201638346,
+    "sessionID": "ses_e7cdcea08ffeLfq1Gh0yPwg0hM",
+    "part": {
+      "id": "prt_183258bc7001JzvPj6SILFTCwP",
+      "reason": "stop",
+      "snapshot": "1e6d02143882355ba7d1a4a30696db3618935da0",
+      "messageID": "msg_1832316f1001hS5KUP748rOhCR",
+      "sessionID": "ses_e7cdcea08ffeLfq1Gh0yPwg0hM",
+      "type": "step-finish",
+      "tokens": {
+        "total": 2547,
+        "input": 495,
+        "output": 68,
+        "reasoning": 1984,
+        "cache": {
+          "write": 0,
+          "read": 0
+        }
+      },
+      "cost": 0
     }
   }
 ]

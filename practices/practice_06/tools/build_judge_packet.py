@@ -33,11 +33,16 @@ def review_parts():
     part3 = "# HTTP-атаки, ACL инструментов, PR и ограничения\n"
     for name in ("evidence/before/attacks.json", "evidence/after/attacks.json",
                  "evidence/before/planner-forced-decision.json", "evidence/after/planner-forced-decision.json",
-                 "evidence/after/http-headers-and-tools.json", "evidence/pull-request-reviewed.json"):
+                 "evidence/after/http-headers-and-tools.json", "evidence/pull-request-reviewed.json",
+                 "evidence/planner-verification.json"):
         part3 += file(name)
+    for phase in ("before", "after"):
+        for variant in ("clean", "injected"):
+            for suffix in ("input.json", "response.txt", "result.json"):
+                part3 += file(f"evidence/{phase}/planner-{variant}-{suffix}")
     report = (ROOT / "REPORT_02.md").read_text()
     part3 += "\n" + report[report.index("## Остаточные риски и выводы"):]
-    part3 += "\nLLM-planner: четыре ответа отсутствуют из-за TLS; эта подборка не закрывает эксперимент.\n"
+    part3 += "\nLLM-planner: четыре ответа получены; 0/2 наблюдаемых успешных инъекций, k=1 на условие.\n"
     for number, text in enumerate((part1, part2, part3), 1):
         output = ROOT / f"review/REVIEW_EVIDENCE_{number:02d}.md"
         output.write_text(text, encoding="utf-8")
@@ -52,7 +57,8 @@ def main():
              "Makefile", "lab/Makefile", "tools/attack_probe.py", "tools/planner_eval.py",
              "evidence/environment.json", "evidence/baseline-sha256.txt",
              "evidence/provider-connectivity.txt", "evidence/pull-request.json",
-             "evidence/pull-request-reviewed.json", "tools/capture_http_evidence.py"]
+             "evidence/pull-request-reviewed.json", "tools/capture_http_evidence.py",
+             "evidence/planner-verification.json", "evidence/planner-user-output.txt"]
     for phase in ("before", "after"):
         names.extend(str(path.relative_to(ROOT)) for path in sorted((ROOT / "evidence" / phase).iterdir())
                      if path.is_file() and path.suffix in {".json", ".txt"})
@@ -60,7 +66,7 @@ def main():
     parts = ["# Артефакты практики 6\n\n"
              "Самодостаточный пакет: полные тексты файлов, контрольные суммы и diff сервиса.\n"
              "Пакет сформирован локально, без сетевых вызовов и повторного исполнения тестов.\n"
-             "Ошибки TLS и пустые ответы модели сохранены как исходные свидетельства.\n\n"
+             "В текущей серии получены четыре ответа модели; прежние ошибки TLS архивированы отдельно.\n\n"
              "## Состав\n\n| Файл | Байт | SHA-256 |\n|---|---:|---|\n"]
     for name, data in contents:
         parts.append(f"| {name} | {len(data)} | {hashlib.sha256(data).hexdigest()} |\n")
