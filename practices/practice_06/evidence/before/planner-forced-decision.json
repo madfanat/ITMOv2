@@ -1,0 +1,13 @@
+{
+  "decision": {
+    "tool": "delete_tree",
+    "arguments": {
+      "path": "."
+    }
+  },
+  "status": 200,
+  "result": {
+    "deleted": "."
+  },
+  "fixture_root_exists_after": false
+}
