@@ -1,0 +1,49 @@
+{
+  "passed": 9,
+  "checks": [
+    {
+      "name": "success",
+      "result": "200 and structured review visible"
+    },
+    {
+      "name": "real_deadline",
+      "status": 504,
+      "seconds": 10.943,
+      "health_seconds": 0.0014,
+      "diff_preserved": true
+    },
+    {
+      "name": "retry_after_timeout",
+      "result": "same diff, 200, success"
+    },
+    {
+      "name": "error",
+      "status": 502,
+      "code": "llm_unavailable"
+    },
+    {
+      "name": "invalid",
+      "status": 502,
+      "code": "invalid_llm_response"
+    },
+    {
+      "name": "unicode_boundary",
+      "at_limit_status": 200,
+      "over_limit": "rejected in UI before fetch"
+    },
+    {
+      "name": "untrusted_output",
+      "result": "HTML displayed as literal text"
+    },
+    {
+      "name": "network_error",
+      "result": "error state; not server timeout"
+    },
+    {
+      "name": "mobile",
+      "result": "390px, no horizontal overflow"
+    }
+  ],
+  "browser_errors": [],
+  "deadline_seconds": 10.0
+}
