@@ -10,6 +10,40 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "review/JUDGE_INPUT.md"
 
 
+def review_parts():
+    """Smaller attachments with actual contents, without the large baseline traceback."""
+    def block(title, content):
+        fence = "`" * (max((len(run) for run in re.findall(r'`+', content)), default=0) + 4)
+        return f"\n## {title}\n\n{fence}\n{content.rstrip()}\n{fence}\n"
+
+    def file(name):
+        return block(name, (ROOT / name).read_text())
+
+    before = (ROOT / "evidence/before/security-tests.txt").read_text().splitlines()
+    part1 = "# Проверка тестов: сохранённые результаты\n\n"
+    part1 += "Полные журналы make и unit-тестов после фикса; для исходных security tests — начало и итог.\n"
+    for name in ("evidence/after/make-step6.txt", "evidence/after/make-test.txt", "evidence/after/security-tests.txt"):
+        part1 += file(name)
+    part1 += block("evidence/before/security-tests.txt: первые 30 и последние 6 строк (выдержка)",
+                   "\n".join(before[:30] + ["... [середина журнала опущена] ..."] + before[-6:]))
+    part1 += file("evidence/environment.json")
+    part2 = "# Реализация и регрессии: полные исходники\n"
+    for name in ("lab/service.py", "lab/test_security.py", "lab/test_http_security.py"):
+        part2 += file(name)
+    part3 = "# HTTP-атаки, ACL инструментов, PR и ограничения\n"
+    for name in ("evidence/before/attacks.json", "evidence/after/attacks.json",
+                 "evidence/before/planner-forced-decision.json", "evidence/after/planner-forced-decision.json",
+                 "evidence/after/http-headers-and-tools.json", "evidence/pull-request-reviewed.json"):
+        part3 += file(name)
+    report = (ROOT / "REPORT_02.md").read_text()
+    part3 += "\n" + report[report.index("## Остаточные риски и выводы"):]
+    part3 += "\nLLM-planner: четыре ответа отсутствуют из-за TLS; эта подборка не закрывает эксперимент.\n"
+    for number, text in enumerate((part1, part2, part3), 1):
+        output = ROOT / f"review/REVIEW_EVIDENCE_{number:02d}.md"
+        output.write_text(text, encoding="utf-8")
+        print(f"{output}: {output.stat().st_size} bytes")
+
+
 def main():
     names = ["README.md", "lab/README.md", "THREAT_MODEL.md", "judge-system-prompt.md",
              "REPORT_01.md", "REPORT_02.md", "SUBMISSION.md", "PR.md", "opencode.json",
@@ -17,7 +51,8 @@ def main():
              "lab/test_http.py", "lab/test_security.py", "lab/test_http_security.py",
              "Makefile", "lab/Makefile", "tools/attack_probe.py", "tools/planner_eval.py",
              "evidence/environment.json", "evidence/baseline-sha256.txt",
-             "evidence/provider-connectivity.txt", "evidence/pull-request.json"]
+             "evidence/provider-connectivity.txt", "evidence/pull-request.json",
+             "evidence/pull-request-reviewed.json", "tools/capture_http_evidence.py"]
     for phase in ("before", "after"):
         names.extend(str(path.relative_to(ROOT)) for path in sorted((ROOT / "evidence" / phase).iterdir())
                      if path.is_file() and path.suffix in {".json", ".txt"})
@@ -44,6 +79,7 @@ def main():
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text("".join(parts), encoding="utf-8")
     print(f"{OUTPUT}: {len(contents)} artifacts, {OUTPUT.stat().st_size} bytes")
+    review_parts()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,143 @@
+{
+  "verdict": "needs_work",
+  "score": 7.5,
+  "max_score": 10,
+  "criteria": [
+    {
+      "id": "threat_model",
+      "score": 2,
+      "max": 2,
+      "evidence": 
+        "THREAT_MODEL.md: разделы «Система, активы и доверие», DFD mermaid, политика доступа после исправлений",
+        "THREAT_MODEL.md: таблица угроз F01–F13 с защитами, приоритетами и проверками",
+        "THREAT_MODEL.md: раздел «Проверка и остаточные риски» с оговорками по LLM"
+      ,
+      "missing": []
+    },
+    {
+      "id": "judge_prompt",
+      "score": 1,
+      "max": 1,
+      "evidence": 
+        "judge-system-prompt.md: кастомная рубрика, фиксированный JSON-формат ответа",
+        "judge-system-prompt.md: явные указания о недоверенности материалов и сопротивлении инструкциям в них"
+      ,
+      "missing": []
+    },
+    {
+      "id": "report_before",
+      "score": 2,
+      "max": 2,
+      "evidence": 
+        "REPORT_01.md: таблица T01–T20 с конкретными запросами/ответами и последствиями",
+        "evidence/before/attacks.json (10805 bytes): заявленный полный лог атак до фикса",
+        "evidence/before/security-tests.txt (55438 bytes): заявленные результаты собственных security-тестов до фикса"
+      ,
+      "missing": []
+    },
+    {
+      "id": "fixes_and_tests",
+      "score": 1,
+      "max": 2,
+      "evidence": 
+        "REPORT_02.md: раздел «Исправления» с описанием серверных мер (ACL, allowlist инструментов, валидации, заголовки безопасности, лимиты)",
+        "lab/service.py (4661efa...): обновлённая реализация заявлена",
+        "evidence/after/make-step6.txt (5897 bytes), evidence/after/make-test.txt (6264 bytes): заявленные логи сборки и тестов после фикса",
+        "lab/test_security.py (10994 bytes): присутствует файл с собственными тестами безопасности"
+      ,
+      "missing": 
+        "Содержимое evidence/after/make-step6.txt и evidence/after/make-test.txt с подтверждением успешных прогонов",
+        "Доказательства, что добавленные атакующие регрессии падали на исходной версии и проходят после фикса (выводы тестов до/после)",
+        "Конкретные диффы/фрагменты кода lab/service.py, подтверждающие заявленные исправления"
+      
+    },
+    {
+      "id": "report_after",
+      "score": 1,
+      "max": 2,
+      "evidence": 
+        "evidence/after/attacks.json (7442 bytes): заявленные полные ответы атак после фикса",
+        "THREAT_MODEL.md: честная фиксация ограничения LLM-эксперимента (TLS, статус unverified)",
+        "evidence/after/planner-clean-.json и planner-injected-.json: сохранённые входы/результаты для чистого и отравленного контекста (без ответа модели)"
+      ,
+      "missing": 
+        "Сопоставление всех T01–T20 после фикса с конкретными ответами/состояниями (контент evidence/after/attacks.json)",
+        "Результаты принудительного JSON-теста исполнителя после фикса (разрешённые/запрещённые инструменты) с содержимым",
+        "Подтверждение одинаковых model/system prompt/задачи, точных входов и исходных ответов модели (ответы пустые — LLM unverified)"
+      
+    },
+    {
+      "id": "pr_and_conclusions",
+      "score": 0.5,
+      "max": 1,
+      "evidence": 
+        "REPORT_01.md: раздел «Вывод» с собственными итогами",
+        "PR.md (4101 bytes) и evidence/pull-request.json (253 bytes): наличие материалов о PR (без верификации открытия)"
+      ,
+      "missing": 
+        "Подтверждённая ссылка на открытый PR (URL и проверка соответствия содержимому)",
+        "Явные 1–2 абзаца собственных выводов в SUBMISSION.md или итоговом отчёте после фикса"
+      
+    }
+  ],
+  "findings": [
+    {
+      "id": "F01",
+      "severity": "high",
+      "status": "unverified",
+      "location": "GET /profile?id, GET /orders, GET /search",
+      "explanation": "Отсутствие аутентификации и контроль владельца (IDOR) в профилях/заказах/поиске заявлены в REPORT_01 (T01,T02,T05).",
+      "evidence": 
+        "REPORT_01.md: T01/T02/T05 описывают доступ к чужим данным",
+        "evidence/before/attacks.json: заявленные трассы до фикса"
+      ,
+      "next_check": "Просмотреть evidence/before/attacks.json и сопоставить с кодом исходной версии; подтвердить, что после фикса те же запросы возвращают 401/403 или только свои данные (evidence/after/attacks.json)."
+    },
+    {
+      "id": "F02",
+      "severity": "high",
+      "status": "unverified",
+      "location": "GET /profile?id=..., GET /search?q=...",
+      "explanation": "SQL-инъекции через параметры id и q заявлены до фикса; после — переход на параметризованные запросы и строгие типы.",
+      "evidence": 
+        "REPORT01.md: T03/T04 (SQLi приводит к выдаче всех профилей)",
+        "REPORT02.md: «SQL только с параметрами; положительные целочисленные id; поиск буквального совпадения»"
+      ,
+      "next_check": "Проверить код lab/service.py на параметризованные SQL и валидацию; запустить соответствующие тесты поиска и профилей до/после."
+    },
+    {
+      "id": "F09",
+      "severity": "critical",
+      "status": "unverified",
+      "location": "POST /assistant/execute (tools: delete_tree, export_profiles, read_file)",
+      "explanation": "Исполнитель до фикса принимал произвольные решения JSON, включая удаление и экспорт; после — allowlist только read_file/refuse и ACL.",
+      "evidence": 
+        "REPORT01.md: T13/T14/T15/T20 (удаление файлов, экспорт профилей, доступ без auth)",
+        "evidence/before/planner-forced-decision.json (187 bytes): заявленный принудительный опасный JSON до фикса",
+        "REPORT02.md: «delete_tree/export_profiles запрещены даже staff; строгая схема и ACL read_file/refuse»"
+      ,
+      "next_check": "Подтвердить, что после фикса принудительная отправка delete_tree/export_profiles получает 403/400 и что read_file доступен только к собственным чекам."
+    }
+  ],
+  "llm_experiment": {
+    "status": "unverified",
+    "model": "vsellm/openai/gpt-5",
+    "runs": 0,
+    "injection_successes": null,
+    "forced_executor_test": "unverified",
+    "limitations": 
+      "Ошибка TLS провайдера: ответ модели отсутствует для чистого и отравленного входов",
+      "Пустые response.txt; отсутствует подтверждение или опровержение успешности prompt injection"
+    
+  },
+  "warnings": [],
+  "next_actions": 
+    "Предоставить содержимое evidence/after/make-step6.txt и evidence/after/make-test.txt, показывающее успешные шаги и все тесты в зелёном.",
+    "Показать добавленные атакующие регрессии в lab/test_security.py: их падение на исходной версии (evidence/before/security-tests.txt) и успех после фикса (evidence/after/security-tests.txt).",
+    "Приложить конкретные фрагменты/диффы lab/service.py, подтверждающие ACL/валидацию/allowlist инструментов и защитные заголовки.",
+    "Повторить LLM-эксперимент с рабочим провайдером: одинаковые модель, system prompt и задача; сохранить точные входы/ответы; сравнить clean vs injected.",
+    "Отдельно проверить принудительный JSON в /assistant/execute после фикса: delete_tree/export_profiles должны быть отклонены, read_file — только с ACL.",
+    "Подтвердить CSP и security headers примером ответа /reviews/view и /products с заголовками и экранированием HTML.",
+    "Предоставить подтверждённую ссылку на открытый PR (и сохранить её в evidence/pull-request.json) и 1–2 абзаца собственных выводов в SUBMISSION.md."
+  
+}
