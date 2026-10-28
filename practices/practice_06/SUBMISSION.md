@@ -17,6 +17,7 @@ PR: [madfanat/ITMOv2#6](https://github.com/madfanat/ITMOv2/pull/6).
 | Сценарии воспроизведения | [attack_probe.py](tools/attack_probe.py), [planner_eval.py](tools/planner_eval.py) |
 | Параметры среды и SHA-256 | [environment.json](evidence/environment.json) |
 | Описание PR | [PR.md](PR.md) |
+| Разбор переданного ответа судьи | [review/ASSESSMENT.md](review/ASSESSMENT.md) |
 
 **Проверено:** make step6, make test, 57 тестов практики 6 проходят; 20 HTTP-
 кейсов воспроизведены до и после. sandbox.py и planner-system.txt не изменены.
@@ -105,6 +106,22 @@ python3 practices/practice_06/tools/planner_eval.py after
 задать XDG_DATA_HOME, XDG_STATE_HOME, XDG_CACHE_HOME на отдельные каталоги /tmp.
 Если нужен корпоративный CA, используйте только доверенный системный сертификат
 через NODE_EXTRA_CA_CERTS; не отключайте проверку TLS.
+
+## Материалы для повторной оценки судьёй
+
+Переданный пользователем ответ судьи сообщает об отсутствии артефактов и
+содержит ошибки JSON. Его разбор — в [ASSESSMENT.md](review/ASSESSMENT.md).
+Для передачи содержимого работы целиком сформируйте локальное приложение:
+
+```bash
+python3 practices/practice_06/tools/build_judge_packet.py
+```
+
+Результат: `review/JUDGE_INPUT.md` внутри этой практики. Это пакет данных из
+существующих файлов, а не новый промпт. Приложите его целиком к сообщению
+учебному судье; одна ссылка на PR не гарантирует доступ модели к файлам.
+Сам сборщик не вызывает LLM и ничего не исполняет. Полученный ответ судьи
+не заменяет эксперимент shop-planner, остающийся незавершённым из-за TLS.
 
 ## Связь с лекцией
 
