@@ -2,6 +2,10 @@
 
 Дата: 28.10.2026.
 
+PR: [madfanat/ITMOv2#6](https://github.com/madfanat/ITMOv2/pull/6).
+Подтверждение открытия: [pull-request.json](evidence/pull-request.json)
+(снимок на момент создания, до добавления ссылки в документацию).
+
 | Критерий | Где смотреть |
 |---|---|
 | Модель угроз, DFD/Mermaid, STRIDE, политика доступа | [THREAT_MODEL.md](THREAT_MODEL.md) |
