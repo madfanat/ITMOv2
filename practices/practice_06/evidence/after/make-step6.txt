@@ -1,0 +1,64 @@
+Standard library only: ready
+test_health_and_not_found (test_http.HttpTest.test_health_and_not_found) ... ok
+test_login_and_purchase_over_http (test_http.HttpTest.test_login_and_purchase_over_http) ... ok
+test_transport_only_binds_loopback (test_http.HttpTest.test_transport_only_binds_loopback) ... ok
+test_cross_origin_and_dns_rebinding (test_http_security.HttpSecurityTest.test_cross_origin_and_dns_rebinding) ... ok
+test_duplicate_headers_rejected (test_http_security.HttpSecurityTest.test_duplicate_headers_rejected) ... ok
+test_get_body_denied (test_http_security.HttpSecurityTest.test_get_body_denied) ... ok
+test_http_owner_enforcement (test_http_security.HttpSecurityTest.test_http_owner_enforcement) ... ok
+test_invalid_content_length (test_http_security.HttpSecurityTest.test_invalid_content_length) ... ok
+test_loopback_required (test_http_security.HttpSecurityTest.test_loopback_required) ... ok
+test_malformed_json_and_non_object (test_http_security.HttpSecurityTest.test_malformed_json_and_non_object) ... ok
+test_oversized_body (test_http_security.HttpSecurityTest.test_oversized_body) ... ok
+test_security_headers (test_http_security.HttpSecurityTest.test_security_headers) ... ok
+test_transfer_encoding_denied (test_http_security.HttpSecurityTest.test_transfer_encoding_denied) ... ok
+test_unexpected_exception_does_not_leak (test_http_security.HttpSecurityTest.test_unexpected_exception_does_not_leak) ... ERROR:root:shop internal error
+ok
+test_worker_limit_closes_excess_connection (test_http_security.HttpSecurityTest.test_worker_limit_closes_excess_connection) ... ok
+test_wrong_content_type (test_http_security.HttpSecurityTest.test_wrong_content_type) ... ok
+test_bob_positive_and_staff_files (test_security.SecurityTest.test_bob_positive_and_staff_files) ... ok
+test_context_distrust_and_data_minimization (test_security.SecurityTest.test_context_distrust_and_data_minimization) ... ok
+test_context_owner_and_sql_injection (test_security.SecurityTest.test_context_owner_and_sql_injection) ... ok
+test_decision_schema (test_security.SecurityTest.test_decision_schema) ... ok
+test_destructive_and_export_tools_denied (test_security.SecurityTest.test_destructive_and_export_tools_denied) ... ok
+test_duplicate_query_rejected (test_security.SecurityTest.test_duplicate_query_rejected) ... ok
+test_file_owner_and_path (test_security.SecurityTest.test_file_owner_and_path) ... ok
+test_headers_case_insensitive (test_security.SecurityTest.test_headers_case_insensitive) ... ok
+test_input_and_state_limits (test_security.SecurityTest.test_input_and_state_limits) ... ok
+test_internal_symlink_cannot_grant_access (test_security.SecurityTest.test_internal_symlink_cannot_grant_access) ... ok
+test_invalid_bodies_are_client_errors (test_security.SecurityTest.test_invalid_bodies_are_client_errors) ... ok
+test_log_access_and_no_secrets (test_security.SecurityTest.test_log_access_and_no_secrets) ... ok
+test_login_schema_does_not_bypass_limits (test_security.SecurityTest.test_login_schema_does_not_bypass_limits) ... ok
+test_login_throttled (test_security.SecurityTest.test_login_throttled) ... ok
+test_missing_file_is_404 (test_security.SecurityTest.test_missing_file_is_404) ... ok
+test_orders_scoped (test_security.SecurityTest.test_orders_scoped) ... ok
+test_other_profile_denied (test_security.SecurityTest.test_other_profile_denied) ... ok
+test_price_is_from_catalog (test_security.SecurityTest.test_price_is_from_catalog) ... ok
+test_profile_sql_injection (test_security.SecurityTest.test_profile_sql_injection) ... ok
+test_protected_endpoints_require_session (test_security.SecurityTest.test_protected_endpoints_require_session) ... ok
+test_refusal_has_no_side_effect (test_security.SecurityTest.test_refusal_has_no_side_effect) ... ok
+test_review_and_order_caps (test_security.SecurityTest.test_review_and_order_caps) ... ok
+test_reviews_escape_markup (test_security.SecurityTest.test_reviews_escape_markup) ... ok
+test_role_header_has_no_authority (test_security.SecurityTest.test_role_header_has_no_authority) ... ok
+test_search_is_scoped_and_literal (test_security.SecurityTest.test_search_is_scoped_and_literal) ... ok
+test_session_capacity_is_bounded (test_security.SecurityTest.test_session_capacity_is_bounded) ... ok
+test_session_expiry_and_logout (test_security.SecurityTest.test_session_expiry_and_logout) ... ok
+test_tool_path_allowlist (test_security.SecurityTest.test_tool_path_allowlist) ... ok
+test_delete_of_fixture_root_stays_inside_exercise (test_service.SandboxTest.test_delete_of_fixture_root_stays_inside_exercise) ... ok
+test_external_directory_cannot_be_deleted (test_service.SandboxTest.test_external_directory_cannot_be_deleted) ... ok
+test_parent_paths_cannot_escape_exercise (test_service.SandboxTest.test_parent_paths_cannot_escape_exercise) ... ok
+test_symlink_cannot_escape_exercise (test_service.SandboxTest.test_symlink_cannot_escape_exercise) ... ok
+test_assistant_can_return_own_receipt (test_service.ShopTest.test_assistant_can_return_own_receipt) ... ok
+test_customer_can_buy_at_catalog_price (test_service.ShopTest.test_customer_can_buy_at_catalog_price) ... ok
+test_health_and_catalog (test_service.ShopTest.test_health_and_catalog) ... ok
+test_own_profile_and_receipt (test_service.ShopTest.test_own_profile_and_receipt) ... ok
+test_review_can_be_submitted_and_viewed (test_service.ShopTest.test_review_can_be_submitted_and_viewed) ... ok
+test_staff_can_export_with_staff_session (test_service.ShopTest.test_staff_can_export_with_staff_session) ... ok
+test_tokens_identify_distinct_users (test_service.ShopTest.test_tokens_identify_distinct_users) ... ok
+test_unknown_product_rejected (test_service.ShopTest.test_unknown_product_rejected) ... ok
+test_wrong_password_rejected (test_service.ShopTest.test_wrong_password_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 57 tests in 1.092s
+
+OK
