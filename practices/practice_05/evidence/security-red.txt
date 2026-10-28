@@ -1,0 +1,62 @@
+...FF......                                                              [100%]
+=================================== FAILURES ===================================
+_ test_secrets_are_masked_before_provider[+password="safe\\"still-secret"-still-secret] _
+
+text = '+password="safe\\"still-secret"', secret = 'still-secret'
+
+    @pytest.mark.parametrize("text,secret", [
+        ('+password="hunter2"', "hunter2"),
+        ("+API_KEY = 'fake-api-key-123'", "fake-api-key-123"),
+        ('+"token": "fake-json-token"', "fake-json-token"),
+        (r'+password="safe\"still-secret"', "still-secret"),
+        (r"+token='safe\'still-secret'", "still-secret"),
+        ("Authorization: Bearer abc.def.ghi", "abc.def.ghi"),
+        ("+ghp_1234567890abcdefghijklmnop", "ghp_1234567890abcdefghijklmnop"),
+        ("+sk-abcdefghijklmnopqrstuv", "sk-abcdefghijklmnopqrstuv"),
+        ("+github_pat_1234567890abcdefghijklmnop", "github_pat_1234567890abcdefghijklmnop"),
+        ("+AKIA1234567890ABCDEF", "AKIA1234567890ABCDEF"),
+        ("+-----BEGIN RSA PRIVATE KEY-----\n+veryPrivateKeyMaterial\n+-----END RSA PRIVATE KEY-----", "veryPrivateKeyMaterial"),
+    ])
+    async def test_secrets_are_masked_before_provider(text, secret):
+        provider = SpyProvider()
+        await ReviewService(provider).review(text)
+>       assert secret not in provider.prompts[0]
+E       assert 'still-secret' not in 'Review this...et"\n</diff>'
+E         
+E         'still-secret' is contained here:
+E           [REDACTED]still-secret"
+E           </diff>
+
+tests/test_review.py:136: AssertionError
+_ test_secrets_are_masked_before_provider[+token='safe\\'still-secret'-still-secret] _
+
+text = "+token='safe\\'still-secret'", secret = 'still-secret'
+
+    @pytest.mark.parametrize("text,secret", [
+        ('+password="hunter2"', "hunter2"),
+        ("+API_KEY = 'fake-api-key-123'", "fake-api-key-123"),
+        ('+"token": "fake-json-token"', "fake-json-token"),
+        (r'+password="safe\"still-secret"', "still-secret"),
+        (r"+token='safe\'still-secret'", "still-secret"),
+        ("Authorization: Bearer abc.def.ghi", "abc.def.ghi"),
+        ("+ghp_1234567890abcdefghijklmnop", "ghp_1234567890abcdefghijklmnop"),
+        ("+sk-abcdefghijklmnopqrstuv", "sk-abcdefghijklmnopqrstuv"),
+        ("+github_pat_1234567890abcdefghijklmnop", "github_pat_1234567890abcdefghijklmnop"),
+        ("+AKIA1234567890ABCDEF", "AKIA1234567890ABCDEF"),
+        ("+-----BEGIN RSA PRIVATE KEY-----\n+veryPrivateKeyMaterial\n+-----END RSA PRIVATE KEY-----", "veryPrivateKeyMaterial"),
+    ])
+    async def test_secrets_are_masked_before_provider(text, secret):
+        provider = SpyProvider()
+        await ReviewService(provider).review(text)
+>       assert secret not in provider.prompts[0]
+E       assert 'still-secret' not in "Review this...et'\n</diff>"
+E         
+E         'still-secret' is contained here:
+E           [REDACTED]still-secret'
+E           </diff>
+
+tests/test_review.py:136: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_review.py::test_secrets_are_masked_before_provider[+password="safe\\"still-secret"-still-secret]
+FAILED tests/test_review.py::test_secrets_are_masked_before_provider[+token='safe\\'still-secret'-still-secret]
+2 failed, 9 passed, 28 deselected in 0.13s
