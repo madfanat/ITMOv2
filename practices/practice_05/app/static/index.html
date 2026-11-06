@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Review · Практика 5</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header><span class="eyebrow">ИТМО / ПРАКТИКА 05</span><span class="badge">Локальный стенд</span></header>
+    <h1>AI review<span class="accent">.</span></h1>
+    <p class="lead">Проверка diff с понятным таймаутом и повторной попыткой.</p>
+    <p class="note">Демонстрационный провайдер отвечает по заданному сценарию. Настоящая LLM не вызывается; diff остаётся на этом компьютере.</p>
+    <form id="review-form" novalidate>
+      <div class="field-heading"><label for="diff">Diff для ревью</label><span id="counter">0 / 20 000</span></div>
+      <textarea id="diff" name="diff" rows="10" spellcheck="false" aria-describedby="diff-hint" placeholder="Вставьте изменения в формате git diff"></textarea>
+      <p id="diff-hint" class="hint">До 20 000 символов Unicode. Распознаваемые секреты маскируются перед вызовом провайдера.</p>
+      <div class="actions">
+        <div class="scenario"><label for="scenario">Сценарий demo</label><select id="scenario"><option value="normal">Успешное ревью</option><option value="slow">Таймаут LLM · 10 секунд</option><option value="error">Провайдер недоступен</option><option value="invalid">Некорректный ответ LLM</option></select></div>
+        <button id="submit" type="submit">Проверить diff <span aria-hidden="true">↗</span></button>
+      </div>
+    </form>
+    <section id="review-state" data-state="idle" aria-busy="false" aria-label="Результат ревью">
+      <div class="status-heading"><span id="state-label" class="state-label">Готово к проверке</span><span id="elapsed" class="hint"></span></div>
+      <p id="status" role="status" aria-live="polite">Вставьте diff и выберите сценарий.</p>
+      <p id="error" role="alert" hidden></p>
+      <button id="retry" type="button" class="secondary" hidden>Повторить</button>
+      <div id="result" hidden><h2>Результат</h2><p id="summary"></p><h3>Подтверждённые риски</h3><ul id="risks"></ul><h3>Что проверить</h3><ul id="checks"></ul></div>
+      <p id="request-id" class="hint" hidden></p>
+    </section>
+    <footer><span>US-03 / Spec-driven development</span><a href="/docs">Контракт API ↗</a></footer>
+  </main>
+</body>
+</html>

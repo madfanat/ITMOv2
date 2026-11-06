@@ -1,0 +1,17 @@
+{
+  "recorded_at": "2026-10-28T13:54:34.284138+00:00",
+  "application_exists": false,
+  "test_first": "evidence/tdd-red.txt",
+  "files": {
+    ".specify/memory/constitution.md": "e31cf0b01e50ee752dce04e4e16158d952db50cfbcb3b5539424b9f0dc2c7dc3",
+    "specs/003-llm-timeout/clarifications.md": "2e255e4990dc56eae076ef8a4966c6409331390af7b2a1a770eb6e1cc15ec807",
+    "specs/003-llm-timeout/contracts/api.md": "120e435c94b34e1f575ac5f5644fada5163ad3bec01d8b1410b078d81560f926",
+    "specs/003-llm-timeout/drafts/logic.before.md": "8f4b0bd8cf41c71f4420f7288605df4acb6f2826566847ecbf9ab67c54fec7ed",
+    "specs/003-llm-timeout/drafts/ui.before.md": "89038b775117d4918f7ada1cb9bc3458b890f3f716e94380be90c0320fb0f51d",
+    "specs/003-llm-timeout/logic.spec.md": "444f343c5e66e41cdf19200aea866392a4bda979ba5292af2a37adc57567c708",
+    "specs/003-llm-timeout/plan.md": "758dd9e77db556e10f533e71be7b1d11120bfdb9dbf18fa767d237eb031cea9b",
+    "specs/003-llm-timeout/spec.md": "1918d94970fa3b0e84e2822a8804c94f5a9ba22b26b9265cc3d30c3183638bc0",
+    "specs/003-llm-timeout/tasks.md": "0329829a4ae2d31961dc2cec094437ee5658d568e9dbd72dd07ddc0e08a46b7b",
+    "specs/003-llm-timeout/ui.spec.md": "e613814c7bf3feaa47a3c62d5f8b324f1a16731c97c0e6f8e92a5305147aa5df"
+  }
+}

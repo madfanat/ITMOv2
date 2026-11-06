@@ -1,0 +1,10 @@
+{
+  "source": "P1 TRAINING_PR.diff: context + added lines; only dependency import replaced by local stub",
+  "missing_diff_status": 500,
+  "long_diff_status": 200,
+  "success_fields": [
+    "comment"
+  ],
+  "secret_sent_unmasked": true,
+  "timeout": "no timeout/cancellation in original synchronous review method (source inspection)"
+}
