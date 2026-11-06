@@ -1,0 +1,2 @@
+dcd6b6630d3dec67e7185c1017e4999a3faa5998ff091419dade31b64132ddcf  practices/practice_06/lab/sandbox.py
+02dc52e77bc5327e9dd41a8d44a0d08feff3534b37e8e0d4a5526dbc67638693  practices/practice_06/planner-system.txt

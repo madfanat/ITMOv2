@@ -1,0 +1,13 @@
+{
+  "decision": {
+    "tool": "delete_tree",
+    "arguments": {
+      "path": "."
+    }
+  },
+  "status": 403,
+  "result": {
+    "error": "tool forbidden"
+  },
+  "fixture_root_exists_after": true
+}

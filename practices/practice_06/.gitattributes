@@ -1,0 +1,2 @@
+# Preserve whitespace in the user-supplied model response.
+evidence/judge/*response.txt -whitespace

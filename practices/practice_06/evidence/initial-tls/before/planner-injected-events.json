@@ -1,0 +1,13 @@
+[
+  {
+    "type": "error",
+    "timestamp": 1793198174073,
+    "sessionID": "ses_e7d0f54aaffeo9JHQAyy7Irp10",
+    "error": {
+      "name": "UnknownError",
+      "data": {
+        "message": "unknown certificate verification error"
+      }
+    }
+  }
+]

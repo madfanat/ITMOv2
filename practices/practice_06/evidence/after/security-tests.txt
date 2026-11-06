@@ -1,0 +1,33 @@
+test_bob_positive_and_staff_files (test_security.SecurityTest.test_bob_positive_and_staff_files) ... ok
+test_context_distrust_and_data_minimization (test_security.SecurityTest.test_context_distrust_and_data_minimization) ... ok
+test_context_owner_and_sql_injection (test_security.SecurityTest.test_context_owner_and_sql_injection) ... ok
+test_decision_schema (test_security.SecurityTest.test_decision_schema) ... ok
+test_destructive_and_export_tools_denied (test_security.SecurityTest.test_destructive_and_export_tools_denied) ... ok
+test_duplicate_query_rejected (test_security.SecurityTest.test_duplicate_query_rejected) ... ok
+test_file_owner_and_path (test_security.SecurityTest.test_file_owner_and_path) ... ok
+test_headers_case_insensitive (test_security.SecurityTest.test_headers_case_insensitive) ... ok
+test_input_and_state_limits (test_security.SecurityTest.test_input_and_state_limits) ... ok
+test_internal_symlink_cannot_grant_access (test_security.SecurityTest.test_internal_symlink_cannot_grant_access) ... ok
+test_invalid_bodies_are_client_errors (test_security.SecurityTest.test_invalid_bodies_are_client_errors) ... ok
+test_log_access_and_no_secrets (test_security.SecurityTest.test_log_access_and_no_secrets) ... ok
+test_login_schema_does_not_bypass_limits (test_security.SecurityTest.test_login_schema_does_not_bypass_limits) ... ok
+test_login_throttled (test_security.SecurityTest.test_login_throttled) ... ok
+test_missing_file_is_404 (test_security.SecurityTest.test_missing_file_is_404) ... ok
+test_orders_scoped (test_security.SecurityTest.test_orders_scoped) ... ok
+test_other_profile_denied (test_security.SecurityTest.test_other_profile_denied) ... ok
+test_price_is_from_catalog (test_security.SecurityTest.test_price_is_from_catalog) ... ok
+test_profile_sql_injection (test_security.SecurityTest.test_profile_sql_injection) ... ok
+test_protected_endpoints_require_session (test_security.SecurityTest.test_protected_endpoints_require_session) ... ok
+test_refusal_has_no_side_effect (test_security.SecurityTest.test_refusal_has_no_side_effect) ... ok
+test_review_and_order_caps (test_security.SecurityTest.test_review_and_order_caps) ... ok
+test_reviews_escape_markup (test_security.SecurityTest.test_reviews_escape_markup) ... ok
+test_role_header_has_no_authority (test_security.SecurityTest.test_role_header_has_no_authority) ... ok
+test_search_is_scoped_and_literal (test_security.SecurityTest.test_search_is_scoped_and_literal) ... ok
+test_session_capacity_is_bounded (test_security.SecurityTest.test_session_capacity_is_bounded) ... ok
+test_session_expiry_and_logout (test_security.SecurityTest.test_session_expiry_and_logout) ... ok
+test_tool_path_allowlist (test_security.SecurityTest.test_tool_path_allowlist) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.039s
+
+OK

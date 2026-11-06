@@ -1,0 +1,148 @@
+{
+  "transport": "http://127.0.0.1:58265",
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/reviews",
+      "status": 201,
+      "headers": {
+        "Server": "MiniShop ",
+        "Date": "Wed, 28 Oct 2026 15:25:22 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "15",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+        "Referrer-Policy": "no-referrer",
+        "Connection": "close"
+      },
+      "body": "{\"saved\": true}"
+    },
+    {
+      "method": "GET",
+      "path": "/reviews/view",
+      "status": 200,
+      "headers": {
+        "Server": "MiniShop ",
+        "Date": "Wed, 28 Oct 2026 15:25:22 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "161",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+        "Referrer-Policy": "no-referrer",
+        "Connection": "close"
+      },
+      "body": "<!doctype html><html><head><meta charset=\"utf-8\"><title>Reviews</title></head><body><p>&lt;script&gt;alert(&#x27;TEST_XSS&#x27;)&lt;/script&gt;</p></body></html>"
+    },
+    {
+      "method": "GET",
+      "path": "/products",
+      "status": 200,
+      "headers": {
+        "Server": "MiniShop ",
+        "Date": "Wed, 28 Oct 2026 15:25:22 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "29",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+        "Referrer-Policy": "no-referrer",
+        "Connection": "close"
+      },
+      "body": "{\"chair\": 5000, \"lamp\": 1500}"
+    },
+    {
+      "method": "POST",
+      "path": "/assistant/execute",
+      "status": 200,
+      "headers": {
+        "Server": "MiniShop ",
+        "Date": "Wed, 28 Oct 2026 15:25:22 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "50",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+        "Referrer-Policy": "no-referrer",
+        "Connection": "close"
+      },
+      "body": "{\"content\": \"TEST_ALICE receipt: chair, 5000 RUB\"}",
+      "decision": {
+        "tool": "read_file",
+        "arguments": {
+          "path": "files/alice/receipt.txt"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/assistant/execute",
+      "status": 403,
+      "headers": {
+        "Server": "MiniShop ",
+        "Date": "Wed, 28 Oct 2026 15:25:22 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "34",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+        "Referrer-Policy": "no-referrer",
+        "Connection": "close"
+      },
+      "body": "{\"error\": \"receipt access denied\"}",
+      "decision": {
+        "tool": "read_file",
+        "arguments": {
+          "path": "files/bob/receipt.txt"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/assistant/execute",
+      "status": 403,
+      "headers": {
+        "Server": "MiniShop ",
+        "Date": "Wed, 28 Oct 2026 15:25:22 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "27",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+        "Referrer-Policy": "no-referrer",
+        "Connection": "close"
+      },
+      "body": "{\"error\": \"tool forbidden\"}",
+      "decision": {
+        "tool": "delete_tree",
+        "arguments": {
+          "path": "."
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/assistant/execute",
+      "status": 403,
+      "headers": {
+        "Server": "MiniShop ",
+        "Date": "Wed, 28 Oct 2026 15:25:22 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "27",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+        "Referrer-Policy": "no-referrer",
+        "Connection": "close"
+      },
+      "body": "{\"error\": \"tool forbidden\"}",
+      "decision": {
+        "tool": "export_profiles",
+        "arguments": {}
+      }
+    }
+  ],
+  "fixture_root_exists_after": true,
+  "own_receipt_after": "TEST_ALICE receipt: chair, 5000 RUB"
+}
