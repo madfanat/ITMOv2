@@ -1,0 +1,605 @@
+{
+  "name": "ITMO 7.2 · Недельная статистика Issues",
+  "nodes": [
+    {
+      "name": "Monday at 09:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "id": "265568ec-db74-55a2-955a-52db87d103e6",
+      "position": [
+        0,
+        -100
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * MON"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Manual report",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "id": "d952c7b3-003d-5a93-801e-5518ef0d25ad",
+      "position": [
+        0,
+        100
+      ],
+      "parameters": {}
+    },
+    {
+      "name": "Set report window",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "id": "4bac6dbb-e2fb-500c-a5bf-25e16fc5a224",
+      "position": [
+        230,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const repository = \"madfanat/ITMOv2\";\nconst recipient = '';\nconst scheduled = Boolean($input.first().json.timestamp);\nconst now = $now.setZone('Europe/Moscow');\nconst monday = now.startOf('week').set({hour: 9});\nconst scheduledEnd = monday > now ? monday.minus({weeks: 1}) : monday;\nconst end = (scheduled ? scheduledEnd : now).startOf('second');\nconst start = end.minus({weeks: 1});\nconst mode = scheduled ? 'scheduled' : 'manual';\nconst key = date => [repository, mode, date.toISODate()].join('|');\nreturn [{ json: {\n  repository, recipient,\n  weekKey: key(end), previousWeekKey: key(start),\n  start: start.toUTC().toISO({suppressMilliseconds:true}),\n  end: end.toUTC().toISO({suppressMilliseconds:true}),\n  lastSecond: end.minus({seconds:1}).toUTC().toISO({suppressMilliseconds:true}),\n} }];"
+      }
+    },
+    {
+      "name": "Opened Issues",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "id": "2de7f501-8423-56da-b67e-122b9a271616",
+      "position": [
+        460,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/search/issues",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {
+          "timeout": 15000,
+          "pagination": {
+            "pagination": {
+              "paginationMode": "responseContainsNextURL",
+              "paginationCompleteWhen": "other",
+              "completeExpression": "={{ !(($response.headers.link || '').includes('rel=\"next\"')) }}",
+              "nextURL": "={{ ($response.headers.link || '').match(/<([^>]+)>; rel=\"next\"/)?.[1] || '' }}"
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ `repo:${ $('Set report window').first().json.repository } is:issue created:${ $('Set report window').first().json.start }..${ $('Set report window').first().json.lastSecond }` }}"
+            },
+            {
+              "name": "per_page",
+              "value": "100"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Closed Issues",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "id": "7716741f-97ca-5d26-8990-9bb728a53cf7",
+      "position": [
+        680,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/search/issues",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {
+          "timeout": 15000,
+          "pagination": {
+            "pagination": {
+              "paginationMode": "responseContainsNextURL",
+              "paginationCompleteWhen": "other",
+              "completeExpression": "={{ !(($response.headers.link || '').includes('rel=\"next\"')) }}",
+              "nextURL": "={{ ($response.headers.link || '').match(/<([^>]+)>; rel=\"next\"/)?.[1] || '' }}"
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ `repo:${ $('Set report window').first().json.repository } is:issue closed:${ $('Set report window').first().json.start }..${ $('Set report window').first().json.lastSecond }` }}"
+            },
+            {
+              "name": "per_page",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "executeOnce": true
+    },
+    {
+      "name": "Merged pull requests",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "id": "9d685cc9-c1cd-575e-a357-b89b610670df",
+      "position": [
+        900,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/search/issues",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {
+          "timeout": 15000,
+          "pagination": {
+            "pagination": {
+              "paginationMode": "responseContainsNextURL",
+              "paginationCompleteWhen": "other",
+              "completeExpression": "={{ !(($response.headers.link || '').includes('rel=\"next\"')) }}",
+              "nextURL": "={{ ($response.headers.link || '').match(/<([^>]+)>; rel=\"next\"/)?.[1] || '' }}"
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "q",
+              "value": "={{ `repo:${ $('Set report window').first().json.repository } is:pr merged:${ $('Set report window').first().json.start }..${ $('Set report window').first().json.lastSecond }` }}"
+            },
+            {
+              "name": "per_page",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "executeOnce": true
+    },
+    {
+      "name": "Repository issue comments",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "id": "ae6653b3-9de2-579f-a1aa-d7d8ab0bdd06",
+      "position": [
+        1120,
+        0
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ 'https://api.github.com/repos/' + $('Set report window').first().json.repository + '/issues/comments' }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {
+          "timeout": 15000,
+          "pagination": {
+            "pagination": {
+              "paginationMode": "responseContainsNextURL",
+              "paginationCompleteWhen": "other",
+              "completeExpression": "={{ !(($response.headers.link || '').includes('rel=\"next\"')) }}",
+              "nextURL": "={{ ($response.headers.link || '').match(/<([^>]+)>; rel=\"next\"/)?.[1] || '' }}"
+            }
+          }
+        },
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "since",
+              "value": "={{ $('Set report window').first().json.start }}"
+            },
+            {
+              "name": "per_page",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "alwaysOutputData": true,
+      "executeOnce": true
+    },
+    {
+      "name": "Group by type and author",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "id": "cb2a9f62-048b-588c-b77e-158f988c923a",
+      "position": [
+        1340,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const window = $('Set report window').first().json;\nconst within = value => typeof value === 'string' && value >= window.start && value < window.end;\nconst search = name => {\n  const pages = $(name).all().map(item => item.json);\n  if (pages.some(page => page.incomplete_results || !Array.isArray(page.items))) {\n    throw new Error(name + ': incomplete GitHub search');\n  }\n  const byId = new Map(pages.flatMap(page => page.items).map(row => [row.id, row]));\n  if (byId.size !== pages[0].total_count) {\n    throw new Error(name + ': GitHub result count differs from fetched rows');\n  }\n  return [...byId.values()];\n};\nconst types = ['bug', 'task', 'feature', 'needs-triage', 'unclassified'];\nconst byType = Object.fromEntries(types.map(type => [type, 0]));\nconst byAuthor = new Map();\nconst opened = search('Opened Issues').filter(issue => !issue.pull_request && within(issue.created_at));\nfor (const issue of opened) {\n  const labels = new Set(issue.labels.map(label => label.name));\n  const classified = types.slice(0, 3).filter(type => labels.has(type));\n  const type = labels.has('needs-triage') ? 'needs-triage' : classified.length === 1 ? classified[0] : 'unclassified';\n  byType[type]++;\n  const login = issue.user?.login ?? '(удалённый пользователь)';\n  const author = byAuthor.get(login) ?? { total: 0, byType: Object.fromEntries(types.map(type => [type, 0])) };\n  author.total++;\n  author.byType[type]++;\n  byAuthor.set(login, author);\n}\nconst closed = search('Closed Issues').filter(issue => !issue.pull_request && within(issue.closed_at)).length;\nconst merged = search('Merged pull requests').filter(pr => pr.pull_request && within(pr.pull_request.merged_at)).length;\nconst comments = new Set($input.all().map(item => item.json)\n  .filter(comment => within(comment.created_at) && /\\/issues\\/\\d+(?:[?#]|$)/.test(comment.html_url ?? ''))\n  .map(comment => comment.id)).size;\nreturn [{ json: { ...window, stats: {\n  activity: { opened: opened.length, closed, comments, merged },\n  byType,\n  byAuthor: Object.fromEntries([...byAuthor].sort(([a], [b]) => a.localeCompare(b))),\n} } }];"
+      }
+    },
+    {
+      "name": "Read previous week",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "id": "c9ddf085-da8a-59d1-9f96-fd179012b280",
+      "position": [
+        1560,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "practice_072_weekly_stats",
+          "mode": "name"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "week_key",
+              "condition": "eq",
+              "keyValue": "={{ $json.previousWeekKey }}"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "alwaysOutputData": true
+    },
+    {
+      "name": "Calculate weekly difference",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "id": "8a57d70d-3620-5297-96f1-d8e9270be90c",
+      "position": [
+        1780,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const current = $('Group by type and author').first().json;\nconst row = $input.first().json;\nconst previous = row.stats_json ? JSON.parse(row.stats_json) : null;\nconst difference = (today, before) => Object.fromEntries(\n  [...new Set([...Object.keys(today), ...Object.keys(before)])]\n    .map(key => [key, (Object.hasOwn(today, key) ? today[key] : 0) - (Object.hasOwn(before, key) ? before[key] : 0)])\n);\nconst totals = rows => Object.fromEntries(Object.entries(rows).map(([name, entry]) => [name, entry.total]));\nconst delta = previous ? {\n  activity: difference(current.stats.activity, previous.activity),\n  byType: difference(current.stats.byType, previous.byType),\n  byAuthor: difference(totals(current.stats.byAuthor), totals(previous.byAuthor)),\n} : null;\nreturn [{ json: { ...current, previousSource: row.source ?? null, delta } }];"
+      }
+    },
+    {
+      "name": "Save weekly snapshot",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "id": "fd76ec4d-5297-5832-852b-ee87cf55f714",
+      "position": [
+        2000,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "practice_072_weekly_stats",
+          "mode": "name"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "week_key",
+              "condition": "eq",
+              "keyValue": "={{ $json.weekKey }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "week_key": "={{ $json.weekKey }}",
+            "repository": "={{ $json.repository }}",
+            "window_start": "={{ $json.start }}",
+            "window_end": "={{ $json.end }}",
+            "source": "={{ 'github' }}",
+            "stats_json": "={{ JSON.stringify($json.stats) }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "week_key",
+              "displayName": "week_key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "repository",
+              "displayName": "repository",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "window_start",
+              "displayName": "window_start",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "window_end",
+              "displayName": "window_end",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "stats_json",
+              "displayName": "stats_json",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Summarize changes",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "id": "cf6cdb99-3998-5c9a-86ac-b5a170d89414",
+      "position": [
+        2220,
+        0
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ `Напиши два коротких предложения на русском для блока недельного отчёта о НОВЫХ GitHub Issues.\nПервое предложение: сколько новых Issues за неделю и как изменилось это число. Поле deltaOpened — изменение количества, положительное значение означает рост, отрицательное — снижение. JSON null означает, что сравнение недоступно.\nВторое предложение: какие типы чаще всего встречаются среди новых Issues. При равенстве укажи несколько типов. Названия лейблов копируй как есть. Без причин, советов и Markdown.\nФакты: ${JSON.stringify({openedThisWeek: $('Calculate weekly difference').first().json.stats.activity.opened, deltaOpened: $('Calculate weekly difference').first().json.delta?.activity.opened ?? null, openedByType: $('Calculate weekly difference').first().json.stats.byType, deltaByType: $('Calculate weekly difference').first().json.delta?.byType ?? null})}` }}",
+        "hasOutputParser": false
+      }
+    },
+    {
+      "name": "Summarize changes model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "id": "ff455779-f9c1-5731-a031-cd7cb864e2d6",
+      "position": [
+        2220,
+        230
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "openai/gpt-4.1-mini",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0,
+          "maxTokens": 350,
+          "maxRetries": 1
+        }
+      }
+    },
+    {
+      "name": "Render HTML report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "id": "bea69bc3-68a1-5dbb-b96d-68db607c5e27",
+      "position": [
+        2440,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const report = $('Calculate weekly difference').first().json;\nconst annotation = $input.first().json.text?.trim();\nif (!annotation) throw new Error('The weekly AI annotation is empty');\nconst escape = value => String(value).replace(/[&<>\"']/g, char => ({\n  '&':'&amp;', '<':'&lt;', '>':'&gt;', '\"':'&quot;', \"'\":'&#39;',\n})[char]);\nconst cell = (tag, value) => `<${tag} style=\"padding:6px 10px;border:1px solid #d0d7de;text-align:left\">${escape(value)}</${tag}>`;\nconst table = (title, headers, rows) => `<h2>${escape(title)}</h2><table style=\"border-collapse:collapse\"><thead><tr>${headers.map(x => cell('th', x)).join('')}</tr></thead><tbody>${rows.map(row => '<tr>' + row.map(x => cell('td', x)).join('') + '</tr>').join('')}</tbody></table>`;\nconst signed = value => typeof value !== 'number' ? '—' : value > 0 ? '+' + value : String(value);\nconst activity = { opened:'Открыто Issues', closed:'Закрыто Issues', comments:'Комментариев в Issues', merged:'Смержено PR' };\nconst types = Object.keys(report.stats.byType);\nconst authorNames = [...new Set([...Object.keys(report.stats.byAuthor), ...Object.keys(report.delta?.byAuthor ?? {})])].sort();\nconst authorRows = authorNames.map(name => {\n  const entry = Object.hasOwn(report.stats.byAuthor, name) ? report.stats.byAuthor[name] : null;\n  return [name, ...types.map(type => entry?.byType[type] ?? 0), entry?.total ?? 0, signed(report.delta?.byAuthor[name])];\n});\nconst note = report.previousSource === 'fixture' ? 'Предыдущая неделя — тестовая запись для демонстрации.'\n  : report.delta ? 'Δ показывает изменение к предыдущей неделе.' : 'За предыдущую неделю снимка нет.';\nconst title = `Недельная статистика Issues · ${report.repository}`;\nconst html = `<!doctype html><html lang=\"ru\"><body style=\"font:15px Arial,sans-serif;color:#24292f\"><h1>${escape(title)}</h1>\n<p>Период: ${escape(report.start)} — ${escape(report.end)} (UTC, конец интервала исключён).</p>\n<p>${escape(note)}</p>\n${table('Активность', ['Метрика','За неделю','Δ'], Object.entries(activity).map(([key,name]) => [name, report.stats.activity[key], signed(report.delta?.activity[key])]))}\n${table('Новые Issues по типам', ['Тип','За неделю','Δ'], types.map(type => [type, report.stats.byType[type], signed(report.delta?.byType[type])]))}\n${table('Новые Issues по авторам', ['Автор',...types,'Всего','Δ всего'], authorRows.length ? authorRows : [['Нет новых Issues', ...types.map(() => 0), 0, '—']])}\n<h2>AI-комментарий недели</h2><p>${escape(annotation)}</p></body></html>`;\nreturn [{ json: { to: report.recipient, subject: title + ' · ' + report.weekKey.split('|').at(-1), html, annotation } }];"
+      }
+    },
+    {
+      "name": "Send HTML via Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "id": "0f196a10-f64e-5c45-a77e-9f349afbbc86",
+      "position": [
+        2660,
+        0
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "sendTo": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Summarize changes model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarize changes",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set report window": {
+      "main": [
+        [
+          {
+            "node": "Opened Issues",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Opened Issues": {
+      "main": [
+        [
+          {
+            "node": "Closed Issues",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Closed Issues": {
+      "main": [
+        [
+          {
+            "node": "Merged pull requests",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merged pull requests": {
+      "main": [
+        [
+          {
+            "node": "Repository issue comments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Repository issue comments": {
+      "main": [
+        [
+          {
+            "node": "Group by type and author",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Group by type and author": {
+      "main": [
+        [
+          {
+            "node": "Read previous week",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read previous week": {
+      "main": [
+        [
+          {
+            "node": "Calculate weekly difference",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate weekly difference": {
+      "main": [
+        [
+          {
+            "node": "Save weekly snapshot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save weekly snapshot": {
+      "main": [
+        [
+          {
+            "node": "Summarize changes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarize changes": {
+      "main": [
+        [
+          {
+            "node": "Render HTML report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Render HTML report": {
+      "main": [
+        [
+          {
+            "node": "Send HTML via Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monday at 09:00": {
+      "main": [
+        [
+          {
+            "node": "Set report window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual report": {
+      "main": [
+        [
+          {
+            "node": "Set report window",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Moscow",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": true
+  },
+  "active": false
+}

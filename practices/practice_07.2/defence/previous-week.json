@@ -1,0 +1,5 @@
+{
+  "activity": { "opened": 2, "closed": 1, "comments": 1, "merged": 0 },
+  "byType": { "bug": 2, "task": 0, "feature": 0, "needs-triage": 0, "unclassified": 0 },
+  "byAuthor": { "previous-example": { "total": 2, "byType": { "bug": 2 } } }
+}

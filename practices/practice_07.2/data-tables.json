@@ -1,0 +1,60 @@
+[
+  {
+    "name": "practice_072_processed_issues",
+    "columns": [
+      {
+        "name": "issue_id",
+        "type": "string"
+      },
+      {
+        "name": "issue_number",
+        "type": "number"
+      },
+      {
+        "name": "author",
+        "type": "string"
+      },
+      {
+        "name": "issue_created_at",
+        "type": "string"
+      },
+      {
+        "name": "type",
+        "type": "string"
+      },
+      {
+        "name": "confidence",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "name": "practice_072_weekly_stats",
+    "columns": [
+      {
+        "name": "week_key",
+        "type": "string"
+      },
+      {
+        "name": "repository",
+        "type": "string"
+      },
+      {
+        "name": "window_start",
+        "type": "string"
+      },
+      {
+        "name": "window_end",
+        "type": "string"
+      },
+      {
+        "name": "source",
+        "type": "string"
+      },
+      {
+        "name": "stats_json",
+        "type": "string"
+      }
+    ]
+  }
+]
