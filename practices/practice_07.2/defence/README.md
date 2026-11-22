@@ -36,4 +36,8 @@ PR меняет только `src/sum.mjs` в изолированном дем�
 
 Прогоны выполнены в локальном n8n 2.40 с Qwen 3.5 4B через Ollama. GitHub доставил подписанные события в журнал webhook. Для локального прогона их передали из GitHub API на loopback с сохранением оригинальной подписи. Учебный ключ модели получил HTTP 401, а предоставленный GitHub PAT получил HTTP 403 при записи лейблов. В локальном прогоне запись в GitHub выполнял ограниченный адаптер авторизованного GitHub CLI. Экспорты подключаются напрямую к GitHub API с подходящей credential. Gmail подключён через отдельный OAuth-клиент проекта `itmo-515522` с областью `gmail.send`. Адрес получателя и credential задаются в экземпляре n8n при импорте.
 
+Пока локальный экземпляр запущен, можно открыть исполнение [классификатора](http://127.0.0.1:15679/workflow/Zf8nUj3xMsQr5kvd/executions/18), [обработчика Issues](http://127.0.0.1:15679/workflow/j2lNHrZDd8awlUdU/executions/17) и [недельного отчёта](http://127.0.0.1:15679/workflow/Kho7xQFkBo4SaDsM/executions/21).
+
+На учебном n8n подключена credential `ITMO 7.2 Gmail`. Четыре сценария импортированы как черновики. Для публикации нужно назначить рабочие credentials модели и GitHub с указанными в инструкции правами. [Обработчик Issues](https://n8n-itmo.cyrweb.ru/workflow/L1cE4SoKVWNIb9iN) · [Классификатор](https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc) · [Недельный отчёт](https://n8n-itmo.cyrweb.ru/workflow/l3q27BriiWwP1aFq) · [Автофикс](https://n8n-itmo.cyrweb.ru/workflow/wn2DdRtmluI8DH5T).
+
 Снимки сделаны в интерфейсах n8n и Gmail во время проверки. История и сценарий для повторного запуска доступны в [журнале](evidence/verification.json) и [Makefile](Makefile).
