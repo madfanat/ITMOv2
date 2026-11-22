@@ -39,3 +39,37 @@
 | 3 | Повторный `/make_ai_review` к уже проверенному PR не запускает ревью — видно в Executions | 3 |
 | 4 | Комментарии публикуются точечно, к каждому блоку изменённого кода — видно в тестовом PR | 5 |
 | | **Итого** | **12** |
+
+## Учебный n8n
+
+[Опубликованный workflow](https://n8n-itmo.cyrweb.ru/workflow/o9UozImE5ZHsJwOj) принимает события прямо от GitHub. Основная модель `openai/gpt-4.1-mini` запускается при открытии PR и по `/make_ai_review` для непроверенного PR. `/make_other_ai_review` запускает `google/gemini-2.5-flash`. Обе модели доступны через LiteLLM.
+
+Для повторного развёртывания импортируйте [workflow.course.json](workflow.course.json). Создайте в проекте Data Table по схеме ниже, назначьте GitHub API credential триггеру и четырём HTTP-нодам GitHub, а ноде `Review blocks with LiteLLM` назначьте Bearer Auth credential для `litellm.data-light.ru`. Укажите репозиторий в триггере и опубликуйте сценарий. Учебный экземпляр уже настроен для демонстрации.
+
+[Тестовый PR №10](https://github.com/madfanat/ITMOv2/pull/10/files) · [Порядок показа и подтверждения](defence/README.md) · [Текст PR](defence/pr.md).
+
+## Локальный запуск с Ollama
+
+Импортируйте [workflow.json](workflow.json) в n8n 2.40.0. Сценарий принимает события GitHub, передаёт изменённые блоки в Ollama и публикует один GitHub review с отдельным комментарием для каждого блока.
+
+1. Запустите Ollama на хосте n8n и загрузите обе модели. Если процессы размещены на разных хостах, укажите доступный адрес в ноде `Review blocks with Ollama`.
+
+   ```sh
+   OLLAMA_HOST=127.0.0.1:11571 ollama serve
+   ```
+
+   ```sh
+   OLLAMA_HOST=127.0.0.1:11571 ollama pull qwen3.5:9b
+   OLLAMA_HOST=127.0.0.1:11571 ollama pull qwen3.5:4b
+   ```
+
+2. В проекте n8n создайте Data Table `practice_071_reviewed_prs`. Добавьте текстовые столбцы `pr_id`, `repository`, `last_model`, `review_id` и числовой столбец `pr_number`. Обе ноды Data Table находят таблицу по имени. [Документация n8n Data Table](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.datatable/).
+3. Назначьте credential типа **GitHub API** триггеру `GitHub PR and comments` и четырём HTTP-нодам GitHub. В триггере укажите владельца и имя репозитория. Credential должен иметь доступ к PR на чтение и запись, а для регистрации триггера нужны права на управление webhook. [Документация n8n GitHub Trigger](https://docs.n8n.io/integrations/builtin/trigger-nodes/n8n-nodes-base.githubtrigger/).
+4. Для автоматической доставки событий задайте `N8N_WEBHOOK_URL` с HTTPS-адресом webhook, доступным GitHub. На выделенном экземпляре n8n задайте `N8N_CONCURRENCY_PRODUCTION_LIMIT=1`, чтобы два одновременных события об одном PR проходили проверку и запись последовательно. Опубликуйте workflow. [Документация n8n по управлению конкурентностью](https://docs.n8n.io/hosting/scaling/concurrency-control/).
+5. Откройте PR с текстовыми изменениями. После первого ревью оставьте `/make_other_ai_review` для второй модели и `/make_ai_review` для проверки пропуска повторного запуска.
+
+Data Table хранит глобальный GitHub `pull_request.id` и идентификатор последнего опубликованного ревью. Основная ветка при существующем ID завершается в `Skip review`, а команду второй модели можно вызвать на уже проверенном PR. Если GitHub принял ревью, но n8n исчерпал повторы записи в таблицу, восстановите строку по опубликованному ревью перед повторным запуском.
+
+Сценарий останавливает публикацию, если GitHub вернул неполный текстовый патч или если изменился SHA базовой или головной ветки. В блоке с добавлениями якорем служит последняя добавленная строка `RIGHT`. Для блока, содержащего только удаления, используется последняя удалённая строка `LEFT`. [GitHub REST API для ревью PR](https://docs.github.com/en/rest/pulls/reviews#create-a-review-for-a-pull-request).
+
+[Тестовый PR локального стенда №9](https://github.com/madfanat/ITMOv2/pull/9).

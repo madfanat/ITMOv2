@@ -1,0 +1,209 @@
+{
+  "workflow_url": "https://n8n-itmo.cyrweb.ru/workflow/o9UozImE5ZHsJwOj",
+  "workflow_active": true,
+  "workflow_sha256": "7aeaa41613267ea025123ae7984ca72edb89545471ad1221a9c9a446b1d6b97f",
+  "test_pr": {
+    "url": "https://github.com/madfanat/ITMOv2/pull/10",
+    "number": 10,
+    "github_id": 5443962681,
+    "head": "92697b4907334a216d1fc5b8bd0a64fe5db5ca8d"
+  },
+  "executions": [
+    {
+      "id": "7588",
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/o9UozImE5ZHsJwOj/executions/7588",
+      "status": "success",
+      "mode": "webhook",
+      "source": "pull_request.opened",
+      "model": "openai/gpt-4.1-mini",
+      "started_at": "2026-11-22T22:14:21.198Z",
+      "finished_at": "2026-11-22T22:14:27.339Z",
+      "github_delivery": {
+        "id": "3855561349593669632",
+        "guid": "103effb0-e6c2-11f1-9ae4-65b6c733b014",
+        "event": "pull_request",
+        "action": "opened",
+        "http_status": 200,
+        "delivered_at": "2026-11-22T22:14:21.297Z"
+      },
+      "decision": "review_requested",
+      "model_responses": 3,
+      "github_review_id": 6014807246,
+      "executed_nodes": [
+        "GitHub PR and comments",
+        "Route GitHub event",
+        "Get pull request",
+        "Find reviewed PR",
+        "Decide whether to review",
+        "Run review?",
+        "List changed files",
+        "Build block prompts",
+        "Review blocks with LiteLLM",
+        "Assemble GitHub review",
+        "Refresh pull request",
+        "Check pull request SHA",
+        "Publish inline review",
+        "Save reviewed PR"
+      ]
+    },
+    {
+      "id": "7589",
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/o9UozImE5ZHsJwOj/executions/7589",
+      "status": "success",
+      "mode": "webhook",
+      "source": "/make_other_ai_review",
+      "model": "google/gemini-2.5-flash",
+      "started_at": "2026-11-22T22:14:53.548Z",
+      "finished_at": "2026-11-22T22:14:58.740Z",
+      "github_delivery": {
+        "id": "3855561418906542080",
+        "guid": "23416832-e6c2-11f1-9d0e-5ea5f5ad9775",
+        "event": "issue_comment",
+        "action": "created",
+        "http_status": 200,
+        "delivered_at": "2026-11-22T22:14:53.666Z"
+      },
+      "decision": "review_requested",
+      "model_responses": 3,
+      "github_review_id": 6014809315,
+      "executed_nodes": [
+        "GitHub PR and comments",
+        "Route GitHub event",
+        "Get pull request",
+        "Find reviewed PR",
+        "Decide whether to review",
+        "Run review?",
+        "List changed files",
+        "Build block prompts",
+        "Review blocks with LiteLLM",
+        "Assemble GitHub review",
+        "Refresh pull request",
+        "Check pull request SHA",
+        "Publish inline review",
+        "Save reviewed PR"
+      ]
+    },
+    {
+      "id": "7591",
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/o9UozImE5ZHsJwOj/executions/7591",
+      "status": "success",
+      "mode": "webhook",
+      "source": "/make_ai_review",
+      "model": "openai/gpt-4.1-mini",
+      "started_at": "2026-11-22T22:15:56.727Z",
+      "finished_at": "2026-11-22T22:15:58.057Z",
+      "github_delivery": {
+        "id": "3855561554527272960",
+        "guid": "48570a96-e6c2-11f1-9976-968c13d02470",
+        "event": "issue_comment",
+        "action": "created",
+        "http_status": 200,
+        "delivered_at": "2026-11-22T22:15:56.83Z"
+      },
+      "decision": "already_reviewed",
+      "model_responses": 0,
+      "github_review_id": null,
+      "executed_nodes": [
+        "GitHub PR and comments",
+        "Route GitHub event",
+        "Get pull request",
+        "Find reviewed PR",
+        "Decide whether to review",
+        "Run review?",
+        "Skip review"
+      ]
+    }
+  ],
+  "data_table": {
+    "name": "practice_071_reviewed_prs",
+    "url": "https://n8n-itmo.cyrweb.ru/projects/qCEYnOmqtgpgej4S/datatables/BnklmwRpBIzvNb8p",
+    "after_primary": {
+      "pr_id": "5443962681",
+      "repository": "madfanat/ITMOv2",
+      "pr_number": 10,
+      "last_model": "openai/gpt-4.1-mini",
+      "review_id": "6014807246",
+      "id": 1,
+      "createdAt": "2026-11-22T22:14:27.335Z",
+      "updatedAt": "2026-11-22T22:14:27.335Z"
+    },
+    "after_duplicate": {
+      "id": 1,
+      "createdAt": "2026-11-22T22:14:27.335Z",
+      "updatedAt": "2026-11-22T22:14:58.735Z",
+      "pr_id": "5443962681",
+      "repository": "madfanat/ITMOv2",
+      "pr_number": 10,
+      "last_model": "google/gemini-2.5-flash",
+      "review_id": "6014809315"
+    }
+  },
+  "github_reviews": [
+    {
+      "id": 6014807246,
+      "state": "COMMENTED",
+      "body": "**AI code review · openai/gpt-4.1-mini**\n\nЗапуск: `pull_request.opened`. Блоков в diff: 3.",
+      "html_url": "https://github.com/madfanat/ITMOv2/pull/10#pullrequestreview-6014807246",
+      "submitted_at": "2026-11-22T22:14:26Z",
+      "comments": [
+        {
+          "path": "practice_071_review_demo.py",
+          "side": "RIGHT",
+          "line": 2,
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/10#discussion_r4660280530"
+        },
+        {
+          "path": "practice_071_review_demo.py",
+          "side": "LEFT",
+          "line": 7,
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/10#discussion_r4660280534"
+        },
+        {
+          "path": "practice_071_review_demo.py",
+          "side": "RIGHT",
+          "line": 10,
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/10#discussion_r4660280537"
+        }
+      ]
+    },
+    {
+      "id": 6014809315,
+      "state": "COMMENTED",
+      "body": "**AI code review · google/gemini-2.5-flash**\n\nЗапуск: `/make_other_ai_review`. Блоков в diff: 3.",
+      "html_url": "https://github.com/madfanat/ITMOv2/pull/10#pullrequestreview-6014809315",
+      "submitted_at": "2026-11-22T22:14:57Z",
+      "comments": [
+        {
+          "path": "practice_071_review_demo.py",
+          "side": "RIGHT",
+          "line": 2,
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/10#discussion_r4660282590"
+        },
+        {
+          "path": "practice_071_review_demo.py",
+          "side": "LEFT",
+          "line": 7,
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/10#discussion_r4660282592"
+        },
+        {
+          "path": "practice_071_review_demo.py",
+          "side": "RIGHT",
+          "line": 10,
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/10#discussion_r4660282597"
+        }
+      ]
+    }
+  ],
+  "github_commands": [
+    {
+      "id": 7086668259,
+      "body": "/make_other_ai_review",
+      "html_url": "https://github.com/madfanat/ITMOv2/pull/10#issuecomment-7086668259"
+    },
+    {
+      "id": 7086681549,
+      "body": "/make_ai_review",
+      "html_url": "https://github.com/madfanat/ITMOv2/pull/10#issuecomment-7086681549"
+    }
+  ]
+}

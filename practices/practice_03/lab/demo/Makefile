@@ -1,4 +1,7 @@
 .PHONY: test
-test:
-	python3 -m unittest -v
 
+# Allow parent Makefile to pass a specific Python interpreter
+PY ?= python3
+
+test:
+	"$(PY)" -m unittest -v

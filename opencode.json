@@ -6,8 +6,6 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "VseLLM",
       "options": {
-         "baseURL": "https://litellm.data-light.ru",
-         "apiKey": "{env:VSELLM_API_KEY}"
         "baseURL": "https://litellm.data-light.ru",
         "apiKey": "{env:VSELLM_API_KEY}"
       },
