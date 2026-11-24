@@ -153,3 +153,15 @@ test('workflow reads and saves the same table and skips before invoking the mode
   assert.equal(nodes.get('Find reviewed PR').parameters.dataTableId.value,
     nodes.get('Save reviewed PR').parameters.dataTableId.value);
 });
+
+if (course) {
+  test('course workflow uses the VseLLM OpenAI credential for the model gateway', () => {
+    const node = nodes.get('Review blocks with VseLLM');
+    assert.equal(node.parameters.url, 'https://litellm.data-light.ru/chat/completions');
+    assert.equal(node.parameters.authentication, 'predefinedCredentialType');
+    assert.equal(node.parameters.nodeCredentialType, 'openAiApi');
+    assert.equal(node.credentials, undefined);
+    assert.equal(workflow.connections['Build block prompts'].main[0][0].node, node.name);
+    assert.equal(workflow.connections[node.name].main[0][0].node, 'Assemble GitHub review');
+  });
+}

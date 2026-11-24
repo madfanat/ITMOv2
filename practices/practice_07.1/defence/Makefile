@@ -1,7 +1,7 @@
 NODE ?= node
 GH ?= gh
 REPO ?= madfanat/ITMOv2
-PR ?= 10
+PR ?= 9
 PULL = repos/$(REPO)/pulls/$(PR)
 COMMENTS = repos/$(REPO)/issues/$(PR)/comments
 

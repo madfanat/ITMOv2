@@ -243,11 +243,11 @@
             }
           }
         },
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpBearerAuth"
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi"
       },
       "id": "b593ce1e-5a23-526c-9872-ba9c834b7c76",
-      "name": "Review blocks with LiteLLM",
+      "name": "Review blocks with VseLLM",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
@@ -504,7 +504,7 @@
       "main": [
         [
           {
-            "node": "Review blocks with LiteLLM",
+            "node": "Review blocks with VseLLM",
             "type": "main",
             "index": 0
           }
@@ -573,7 +573,7 @@
         ]
       ]
     },
-    "Review blocks with LiteLLM": {
+    "Review blocks with VseLLM": {
       "main": [
         [
           {

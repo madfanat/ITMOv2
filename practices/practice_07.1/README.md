@@ -42,11 +42,11 @@
 
 ## Учебный n8n
 
-[Опубликованный workflow](https://n8n-itmo.cyrweb.ru/workflow/o9UozImE5ZHsJwOj) принимает события прямо от GitHub. Основная модель `openai/gpt-4.1-mini` запускается при открытии PR и по `/make_ai_review` для непроверенного PR. `/make_other_ai_review` запускает `google/gemini-2.5-flash`. Обе модели доступны через LiteLLM.
+[Опубликованный workflow](https://n8n-itmo.cyrweb.ru/workflow/o9UozImE5ZHsJwOj) принимает события прямо от GitHub. Основная модель `openai/gpt-4.1-mini` запускается при открытии PR и по `/make_ai_review` для непроверенного PR. `/make_other_ai_review` запускает `google/gemini-2.5-flash`. Обе модели вызываются через действующий VseLLM credential на учебном шлюзе `litellm.data-light.ru`.
 
-Для повторного развёртывания импортируйте [workflow.course.json](workflow.course.json). Создайте в проекте Data Table по схеме ниже, назначьте GitHub API credential триггеру и четырём HTTP-нодам GitHub, а ноде `Review blocks with LiteLLM` назначьте Bearer Auth credential для `litellm.data-light.ru`. Укажите репозиторий в триггере и опубликуйте сценарий. Учебный экземпляр уже настроен для демонстрации.
+Для повторного развёртывания импортируйте [workflow.course.json](workflow.course.json). Создайте в проекте Data Table по схеме ниже. Назначьте GitHub API credential триггеру и четырём HTTP-нодам GitHub. Ноде `Review blocks with VseLLM` назначьте credential типа **OpenAI API** с ключом VseLLM для учебного шлюза и Base URL `https://litellm.data-light.ru`. Укажите репозиторий в триггере и опубликуйте сценарий. Учебный экземпляр уже настроен для демонстрации.
 
-[Тестовый PR №10](https://github.com/madfanat/ITMOv2/pull/10/files) · [Порядок показа и подтверждения](defence/README.md) · [Текст PR](defence/pr.md).
+[Тестовый PR №9](https://github.com/madfanat/ITMOv2/pull/9/files) · [Порядок показа и подтверждения](defence/README.md) · [Текст PR](defence/pr.md).
 
 ## Локальный запуск с Ollama
 
