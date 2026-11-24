@@ -2,6 +2,12 @@
 
 [План работы](plan.md) · [Экспорты и подключение](../README.md#решение) · [Журнал контрольной проверки](evidence/verification.json)
 
+## Запуски на учебном n8n
+
+Классификатор опубликован и использует `openai/gpt-4.1-mini` через учебный VseLLM. Контрольный сценарий вызвал его через Execute Sub-workflow и получил `bug`, `task`, `feature` с уверенностью `0.9` и `unknown` с `0.7`. Structured Output Parser восстанавливает формат ответа при невалидном JSON. [Выход классификатора](evidence/hosted-classifier-8984-return-type-and-confidence.png) · [Журнал запусков](evidence/hosted-verification.json).
+
+Недельный отчёт опубликован с cron `0 9 * * MON` в `Europe/Moscow`. Execution 8988 выполнил четыре запроса к GitHub, сохранил текущую неделю, рассчитал Δ к помеченной тестовой строке и отправил письмо во входящие Gmail. За период открыто 5 Issues, Δ равна **+3**, самый частый тип — `bug` (2). [Execution 8988](https://n8n-itmo.cyrweb.ru/workflow/l3q27BriiWwP1aFq/executions/8988) · [Группировка](evidence/hosted-weekly-report-8988-group-by-type-and-author.png) · [Две строки Data Table](evidence/hosted-practice_072_weekly_stats.png) · [Письмо](evidence/hosted-gmail-report.png) · [AI-комментарий в письме](evidence/hosted-gmail-annotation.png).
+
 ## Девять критериев
 
 | № | Баллы | Что показать |
@@ -34,10 +40,10 @@ PR меняет только `src/sum.mjs` в изолированном дем�
 
 ## Условия прогона
 
-Прогоны выполнены в локальном n8n 2.40 с Qwen 3.5 4B через Ollama. GitHub доставил подписанные события в журнал webhook. Для локального прогона их передали из GitHub API на loopback с сохранением оригинальной подписи. Учебный ключ модели получил HTTP 401, а предоставленный GitHub PAT получил HTTP 403 при записи лейблов. В локальном прогоне запись в GitHub выполнял ограниченный адаптер авторизованного GitHub CLI. Экспорты подключаются напрямую к GitHub API с подходящей credential. Gmail подключён через отдельный OAuth-клиент проекта `itmo-515522` с областью `gmail.send`. Адрес получателя и credential задаются в экземпляре n8n при импорте.
+Первые прогоны выполнены в локальном n8n 2.40 с Qwen 3.5 4B через Ollama. Подписанные события передали из GitHub API на loopback с сохранением оригинальной подписи. При локальном прогоне запись в GitHub выполнял ограниченный адаптер авторизованного GitHub CLI. Экспорты подключаются напрямую к GitHub API с подходящей credential. Gmail подключён через отдельный OAuth-клиент проекта `itmo-515522` с областью `gmail.send`. Адрес получателя задаётся в ноде Gmail и отсутствует в выходных данных агрегации.
 
 Пока локальный экземпляр запущен, можно открыть исполнение [классификатора](http://127.0.0.1:15679/workflow/Zf8nUj3xMsQr5kvd/executions/18), [обработчика Issues](http://127.0.0.1:15679/workflow/j2lNHrZDd8awlUdU/executions/17) и [недельного отчёта](http://127.0.0.1:15679/workflow/Kho7xQFkBo4SaDsM/executions/21).
 
-На учебном n8n подключена credential `ITMO 7.2 Gmail`. Четыре сценария импортированы как черновики. Для публикации нужно назначить рабочие credentials модели и GitHub с указанными в инструкции правами. [Обработчик Issues](https://n8n-itmo.cyrweb.ru/workflow/L1cE4SoKVWNIb9iN) · [Классификатор](https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc) · [Недельный отчёт](https://n8n-itmo.cyrweb.ru/workflow/l3q27BriiWwP1aFq) · [Автофикс](https://n8n-itmo.cyrweb.ru/workflow/wn2DdRtmluI8DH5T).
+На учебном n8n подключены `ITMO 7.2 VseLLM` и `ITMO 7.2 Gmail`. Обработчик Issues и автофикс подготовлены к публикации. Для них требуются отдельные GitHub credentials с правами записи в соответствующих репозиториях. [Обработчик Issues](https://n8n-itmo.cyrweb.ru/workflow/L1cE4SoKVWNIb9iN) · [Классификатор](https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc) · [Недельный отчёт](https://n8n-itmo.cyrweb.ru/workflow/l3q27BriiWwP1aFq) · [Автофикс](https://n8n-itmo.cyrweb.ru/workflow/wn2DdRtmluI8DH5T).
 
 Снимки сделаны в интерфейсах n8n и Gmail во время проверки. История и сценарий для повторного запуска доступны в [журнале](evidence/verification.json) и [Makefile](Makefile).

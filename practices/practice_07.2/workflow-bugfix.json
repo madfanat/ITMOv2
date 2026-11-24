@@ -162,7 +162,8 @@
       ],
       "parameters": {
         "schemaType": "manual",
-        "inputSchema": "{\"type\": \"object\", \"required\": [\"replacement\"], \"additionalProperties\": false, \"properties\": {\"replacement\": {\"type\": \"string\"}}}"
+        "inputSchema": "{\"type\": \"object\", \"required\": [\"replacement\"], \"additionalProperties\": false, \"properties\": {\"replacement\": {\"type\": \"string\"}}}",
+        "autoFix": true
       }
     },
     {
@@ -333,7 +334,8 @@
       ],
       "parameters": {
         "schemaType": "manual",
-        "inputSchema": "{\"type\": \"object\", \"required\": [\"approved\", \"blocking\", \"summary\"], \"additionalProperties\": false, \"properties\": {\"approved\": {\"type\": \"boolean\"}, \"blocking\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"summary\": {\"type\": \"string\"}}}"
+        "inputSchema": "{\"type\": \"object\", \"required\": [\"approved\", \"blocking\", \"summary\"], \"additionalProperties\": false, \"properties\": {\"approved\": {\"type\": \"boolean\"}, \"blocking\": {\"type\": \"array\", \"items\": {\"type\": \"string\"}}, \"summary\": {\"type\": \"string\"}}}",
+        "autoFix": true
       }
     },
     {
@@ -490,6 +492,11 @@
             "node": "Propose one-line patch",
             "type": "ai_languageModel",
             "index": 0
+          },
+          {
+            "node": "Patch Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
           }
         ]
       ]
@@ -510,6 +517,11 @@
         [
           {
             "node": "Review candidate independently",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Structured Output Parser",
             "type": "ai_languageModel",
             "index": 0
           }

@@ -130,13 +130,17 @@ test('Δ includes missing authors and HTML escapes authors and model output', ()
     byType: { bug: 5 },
     byAuthor: { alice: { total: 2 }, removed: { total: 3 } },
   };
-  const compare = row => execute(report, 'Calculate weekly difference', [row], { 'Group by type and author': [current] })[0].json;
+  const compare = (row, snapshot = current) => execute(report, 'Calculate weekly difference', [row], { 'Group by type and author': [snapshot] })[0].json;
   assert.equal(compare({}).delta, null);
+  const soleLeader = { ...current, stats: { ...current.stats, byType: { bug: 2, task: 1 } } };
+  assert.deepEqual(compare({}, soleLeader).mostFrequentTypes, ['bug']);
   const comparison = compare({ stats_json: JSON.stringify(previous), source: 'fixture' });
   assert.equal(comparison.delta.activity.opened, -1);
+  assert.deepEqual(comparison.mostFrequentTypes, ['bug', 'feature', 'needs-triage', 'unclassified']);
   assert.equal(comparison.delta.byAuthor.removed, -3);
   const email = execute(report, 'Render HTML report', [{ text: 'Проверка <script>' }], { 'Calculate weekly difference': [comparison] })[0].json;
   assert.match(email.html, /AI-комментарий недели/);
+  assert.equal(Object.hasOwn(email, 'to'), false);
   assert.match(email.html, /тестовая запись/);
   assert.match(email.html, /&lt;tag&gt;/);
   assert.match(email.html, /&lt;script&gt;/);

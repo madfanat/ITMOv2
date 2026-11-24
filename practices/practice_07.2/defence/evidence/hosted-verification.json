@@ -1,0 +1,136 @@
+{
+  "gateway": "VseLLM via LiteLLM",
+  "model": "openai/gpt-4.1-mini",
+  "workflows": {
+    "classifier": {
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc",
+      "published": true
+    },
+    "bugfix": {
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/wn2DdRtmluI8DH5T",
+      "published": false
+    },
+    "issues": {
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/L1cE4SoKVWNIb9iN",
+      "published": false
+    },
+    "weekly-report": {
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/l3q27BriiWwP1aFq",
+      "published": true,
+      "cron": "0 9 * * MON",
+      "timezone": "Europe/Moscow"
+    }
+  },
+  "classifier": {
+    "execution": 8983,
+    "cases": [
+      {
+        "type": "bug",
+        "confidence": 0.9
+      },
+      {
+        "type": "task",
+        "confidence": 0.9
+      },
+      {
+        "type": "feature",
+        "confidence": 0.9
+      },
+      {
+        "type": "unknown",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "weekly_report": {
+    "execution": 8988,
+    "nodes": [
+      "Manual report",
+      "Set report window",
+      "Opened Issues",
+      "Closed Issues",
+      "Merged pull requests",
+      "Repository issue comments",
+      "Group by type and author",
+      "Read previous week",
+      "Calculate weekly difference",
+      "Save weekly snapshot",
+      "Summarize changes model",
+      "Summarize changes",
+      "Render HTML report",
+      "Send HTML via Gmail"
+    ],
+    "window": {
+      "start": "2026-11-17T22:46:36Z",
+      "end": "2026-11-24T22:46:36Z"
+    },
+    "stats": {
+      "activity": {
+        "opened": 5,
+        "closed": 0,
+        "comments": 4,
+        "merged": 1
+      },
+      "byType": {
+        "bug": 2,
+        "task": 1,
+        "feature": 1,
+        "needs-triage": 1,
+        "unclassified": 0
+      },
+      "byAuthor": {
+        "madfanat": {
+          "total": 5,
+          "byType": {
+            "bug": 2,
+            "task": 1,
+            "feature": 1,
+            "needs-triage": 1,
+            "unclassified": 0
+          }
+        }
+      }
+    },
+    "delta": {
+      "activity": {
+        "opened": 3,
+        "closed": -1,
+        "comments": 3,
+        "merged": 1
+      },
+      "byType": {
+        "bug": 0,
+        "task": 1,
+        "feature": 1,
+        "needs-triage": 1,
+        "unclassified": 0
+      },
+      "byAuthor": {
+        "madfanat": 5,
+        "previous-example": -2
+      }
+    },
+    "leading_types": [
+      "bug"
+    ],
+    "annotation": "За неделю было открыто 5 новых Issues, что на 3 больше, чем на предыдущей неделе. Лидирующий тип новых Issues: bug.",
+    "history": [
+      {
+        "key": "madfanat/ITMOv2|manual|2026-11-18",
+        "source": "fixture"
+      },
+      {
+        "key": "madfanat/ITMOv2|manual|2026-11-25",
+        "source": "github"
+      }
+    ],
+    "gmail": {
+      "messageId": "1a20fbd6fdf89622",
+      "labelIds": [
+        "UNREAD",
+        "SENT",
+        "INBOX"
+      ]
+    }
+  }
+}
