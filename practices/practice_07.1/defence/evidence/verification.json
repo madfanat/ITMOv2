@@ -1,0 +1,219 @@
+{
+  "n8n_version": "2.40.0",
+  "workflow_sha256": "37f143a9a93321c4c6385b0272783288c5f3fe5bb650741eee2654d456204c75",
+  "test_pr": {
+    "url": "https://github.com/madfanat/ITMOv2/pull/9",
+    "number": 9,
+    "github_id": 5443775274,
+    "head": "d6b0c1615711df198e221e31f945e16924cd4012"
+  },
+  "executions": [
+    {
+      "id": 2,
+      "status": "success",
+      "mode": "webhook",
+      "source": "pull_request.opened",
+      "model": "qwen3.5:9b",
+      "started_at": "2026-11-22T21:52:53.708Z",
+      "finished_at": "2026-11-22T21:53:20.012Z",
+      "decision": "review_requested",
+      "model_responses": 3,
+      "github_review_id": 6014725145,
+      "executed_nodes": [
+        "GitHub PR and comments",
+        "Route GitHub event",
+        "Get pull request",
+        "Find reviewed PR",
+        "Decide whether to review",
+        "Run review?",
+        "List changed files",
+        "Build block prompts",
+        "Review blocks with Ollama",
+        "Assemble GitHub review",
+        "Refresh pull request",
+        "Check pull request SHA",
+        "Publish inline review",
+        "Save reviewed PR"
+      ],
+      "delivery": {
+        "id": "3855558449469325312",
+        "guid": "ebab843c-e6be-11f1-82ff-a3927dde22ab",
+        "event": "pull_request",
+        "action": "opened",
+        "pr": 9,
+        "github_delivery_status": "failed to connect to host",
+        "local_status": 200,
+        "original_signature_matched": true,
+        "comment_id": null
+      }
+    },
+    {
+      "id": 3,
+      "status": "success",
+      "mode": "webhook",
+      "source": "/make_other_ai_review",
+      "model": "qwen3.5:4b",
+      "started_at": "2026-11-22T21:54:40.246Z",
+      "finished_at": "2026-11-22T21:54:55.701Z",
+      "decision": "review_requested",
+      "model_responses": 3,
+      "github_review_id": 6014731537,
+      "executed_nodes": [
+        "GitHub PR and comments",
+        "Route GitHub event",
+        "Get pull request",
+        "Find reviewed PR",
+        "Decide whether to review",
+        "Run review?",
+        "List changed files",
+        "Build block prompts",
+        "Review blocks with Ollama",
+        "Assemble GitHub review",
+        "Refresh pull request",
+        "Check pull request SHA",
+        "Publish inline review",
+        "Save reviewed PR"
+      ],
+      "delivery": {
+        "id": "3855558773835825152",
+        "guid": "45ee019a-e6bf-11f1-89ac-45887079baec",
+        "event": "issue_comment",
+        "action": "created",
+        "pr": 9,
+        "github_delivery_status": "failed to connect to host",
+        "local_status": 200,
+        "original_signature_matched": true,
+        "comment_id": 7086402365
+      }
+    },
+    {
+      "id": 4,
+      "status": "success",
+      "mode": "webhook",
+      "source": "/make_ai_review",
+      "model": "qwen3.5:9b",
+      "started_at": "2026-11-22T21:56:05.381Z",
+      "finished_at": "2026-11-22T21:56:05.911Z",
+      "decision": "already_reviewed",
+      "model_responses": 0,
+      "github_review_id": null,
+      "executed_nodes": [
+        "GitHub PR and comments",
+        "Route GitHub event",
+        "Get pull request",
+        "Find reviewed PR",
+        "Decide whether to review",
+        "Run review?",
+        "Skip review"
+      ],
+      "delivery": {
+        "id": "3855558968808046592",
+        "guid": "7c225810-e6bf-11f1-989f-4a19c6de1a27",
+        "event": "issue_comment",
+        "action": "created",
+        "pr": 9,
+        "github_delivery_status": "failed to connect to host",
+        "local_status": 200,
+        "original_signature_matched": true,
+        "comment_id": 7086421126
+      }
+    }
+  ],
+  "initial_execution": {
+    "id": 1,
+    "status": "error",
+    "mode": "webhook",
+    "resolved": "Use pagination parameter type qs for the GitHub files request"
+  },
+  "state_table": {
+    "name": "practice_071_reviewed_prs",
+    "after_primary": {
+      "pr_id": "5443775274",
+      "repository": "madfanat/ITMOv2",
+      "pr_number": 9,
+      "last_model": "qwen3.5:9b",
+      "review_id": "6014725145",
+      "id": 1,
+      "createdAt": "2026-11-22T21:53:20.011Z",
+      "updatedAt": "2026-11-22T21:53:20.011Z"
+    },
+    "after_duplicate": {
+      "id": 1,
+      "pr_id": "5443775274",
+      "repository": "madfanat/ITMOv2",
+      "pr_number": 9,
+      "last_model": "qwen3.5:4b",
+      "review_id": "6014731537",
+      "createdAt": "2026-11-22T21:53:20.011Z",
+      "updatedAt": "2026-11-22T21:54:55.700Z"
+    }
+  },
+  "github_reviews": [
+    {
+      "id": 6014725145,
+      "body": "**AI code review · qwen3.5:9b**\n\nЗапуск: `pull_request.opened`. Блоков в diff: 3.",
+      "html_url": "https://github.com/madfanat/ITMOv2/pull/9#pullrequestreview-6014725145",
+      "state": "COMMENTED",
+      "submitted_at": "2026-11-22T21:53:18Z",
+      "comments": [
+        {
+          "path": "practice_071_review_demo.py",
+          "line": 2,
+          "side": "RIGHT",
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/9#discussion_r4660202615"
+        },
+        {
+          "path": "practice_071_review_demo.py",
+          "line": 7,
+          "side": "LEFT",
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/9#discussion_r4660202620"
+        },
+        {
+          "path": "practice_071_review_demo.py",
+          "line": 10,
+          "side": "RIGHT",
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/9#discussion_r4660202631"
+        }
+      ]
+    },
+    {
+      "id": 6014731537,
+      "body": "**AI code review · qwen3.5:4b**\n\nЗапуск: `/make_other_ai_review`. Блоков в diff: 3.",
+      "html_url": "https://github.com/madfanat/ITMOv2/pull/9#pullrequestreview-6014731537",
+      "state": "COMMENTED",
+      "submitted_at": "2026-11-22T21:54:54Z",
+      "comments": [
+        {
+          "path": "practice_071_review_demo.py",
+          "line": 2,
+          "side": "RIGHT",
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/9#discussion_r4660208575"
+        },
+        {
+          "path": "practice_071_review_demo.py",
+          "line": 7,
+          "side": "LEFT",
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/9#discussion_r4660208578"
+        },
+        {
+          "path": "practice_071_review_demo.py",
+          "line": 10,
+          "side": "RIGHT",
+          "html_url": "https://github.com/madfanat/ITMOv2/pull/9#discussion_r4660208579"
+        }
+      ]
+    }
+  ],
+  "github_commands": [
+    {
+      "id": 7086402365,
+      "body": "/make_other_ai_review",
+      "html_url": "https://github.com/madfanat/ITMOv2/pull/9#issuecomment-7086402365"
+    },
+    {
+      "id": 7086421126,
+      "body": "/make_ai_review",
+      "html_url": "https://github.com/madfanat/ITMOv2/pull/9#issuecomment-7086421126"
+    }
+  ]
+}

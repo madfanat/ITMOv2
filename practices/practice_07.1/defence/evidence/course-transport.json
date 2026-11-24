@@ -1,0 +1,20 @@
+{
+  "n8n_host": "https://n8n-itmo.cyrweb.ru",
+  "repository": "madfanat/ITMOv2",
+  "event": "ping",
+  "scope": "transport only",
+  "n8n_create_http": 200,
+  "n8n_activate_http": 200,
+  "github_delivery_id": "3855560207910305792",
+  "github_delivery_guid": "d3c74c6e-e6c0-11f1-85bb-c2f3b616cb12",
+  "delivered_at": "2026-11-22T22:05:29.687Z",
+  "github_status": "OK",
+  "github_status_code": 200,
+  "n8n_executions_http": 200,
+  "n8n_execution_id": "7582",
+  "n8n_execution_status": "success",
+  "n8n_received_event": "ping",
+  "n8n_received_delivery_guid": "d3c74c6e-e6c0-11f1-85bb-c2f3b616cb12",
+  "temporary_github_hook_removed": true,
+  "temporary_n8n_workflow_removed": true
+}
