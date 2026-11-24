@@ -3,64 +3,66 @@
   "classifications": [
     {
       "scenario": "success",
-      "startedAt": "2026-11-24T22:00:39.476Z",
+      "startedAt": "2026-11-24T22:15:46.728Z",
       "httpStatus": 200,
       "result": {
         "classification": {
           "type": "bug",
-          "confidence": 0.95
+          "confidence": 0.9
         }
       },
       "browserRequestsAfterRepeatedInput": 1,
       "webhookExecution": {
-        "id": "8907",
+        "id": "8932",
         "status": "success",
-        "startedAt": "2026-11-24T22:00:39.604Z",
-        "url": "https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI/executions/8907"
+        "startedAt": "2026-11-24T22:15:46.874Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI/executions/8932"
       },
       "classifierExecution": {
-        "id": "8908",
+        "id": "8933",
         "status": "success",
-        "startedAt": "2026-11-24T22:00:39.809Z",
-        "url": "https://n8n-itmo.cyrweb.ru/workflow/H4bJwJ7DPu3k5024/executions/8908",
+        "startedAt": "2026-11-24T22:15:47.034Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc/executions/8933",
         "result": {
           "type": "bug",
-          "confidence": 0.95
-        }
+          "confidence": 0.9
+        },
+        "structuredOutputParserRan": true
       }
     },
     {
       "scenario": "empty",
-      "startedAt": "2026-11-24T22:00:41.106Z",
+      "startedAt": "2026-11-24T22:15:48.353Z",
       "httpStatus": 200,
       "result": {
         "classification": null
       },
       "webhookExecution": {
-        "id": "8909",
+        "id": "8936",
         "status": "success",
-        "startedAt": "2026-11-24T22:00:41.191Z",
-        "url": "https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI/executions/8909"
+        "startedAt": "2026-11-24T22:15:48.778Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI/executions/8936"
       },
       "classifierExecution": {
-        "id": "8910",
+        "id": "8937",
         "status": "success",
-        "startedAt": "2026-11-24T22:00:41.381Z",
-        "url": "https://n8n-itmo.cyrweb.ru/workflow/H4bJwJ7DPu3k5024/executions/8910",
+        "startedAt": "2026-11-24T22:15:48.818Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc/executions/8937",
         "result": {
           "type": "unknown",
           "confidence": 0.7
-        }
+        },
+        "structuredOutputParserRan": true
       }
     },
     {
       "scenario": "invalid_webhook_credential",
-      "startedAt": "2026-11-24T22:00:43.295Z",
+      "startedAt": "2026-11-24T22:15:50.019Z",
       "httpStatus": 502
     },
     {
       "scenario": "retry_after_restoring_webhook_credential",
-      "startedAt": "2026-11-24T22:00:43.645Z",
+      "startedAt": "2026-11-24T22:15:50.326Z",
       "httpStatus": 200,
       "result": {
         "classification": {
@@ -69,20 +71,21 @@
         }
       },
       "webhookExecution": {
-        "id": "8911",
+        "id": "8938",
         "status": "success",
-        "startedAt": "2026-11-24T22:00:43.764Z",
-        "url": "https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI/executions/8911"
+        "startedAt": "2026-11-24T22:15:50.447Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI/executions/8938"
       },
       "classifierExecution": {
-        "id": "8912",
+        "id": "8939",
         "status": "success",
-        "startedAt": "2026-11-24T22:00:43.997Z",
-        "url": "https://n8n-itmo.cyrweb.ru/workflow/H4bJwJ7DPu3k5024/executions/8912",
+        "startedAt": "2026-11-24T22:15:50.602Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc/executions/8939",
         "result": {
           "type": "bug",
           "confidence": 0.95
-        }
+        },
+        "structuredOutputParserRan": true
       }
     }
   ],
@@ -93,5 +96,96 @@
     "invalidJson": 400,
     "oversizeBody": 413,
     "webhookWithoutSecret": 403
+  },
+  "additionalCategoryChecks": [
+    {
+      "title": "Как настроить часовой пояс недельного отчёта?",
+      "startedAt": "2026-11-24T22:16:14.625Z",
+      "httpStatus": 200,
+      "result": {
+        "classification": {
+          "type": "task",
+          "confidence": 0.9
+        }
+      },
+      "webhookExecution": {
+        "id": "8942",
+        "status": "success",
+        "startedAt": "2026-11-24T22:16:14.828Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI/executions/8942"
+      },
+      "classifierExecution": {
+        "id": "8943",
+        "status": "success",
+        "startedAt": "2026-11-24T22:16:14.870Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc/executions/8943",
+        "result": {
+          "type": "task",
+          "confidence": 0.9
+        },
+        "structuredOutputParserRan": true
+      }
+    },
+    {
+      "title": "Добавить экспорт недельного отчёта в XLSX",
+      "startedAt": "2026-11-24T22:16:15.992Z",
+      "httpStatus": 200,
+      "result": {
+        "classification": {
+          "type": "feature",
+          "confidence": 0.9
+        }
+      },
+      "webhookExecution": {
+        "id": "8944",
+        "status": "success",
+        "startedAt": "2026-11-24T22:16:16.046Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI/executions/8944"
+      },
+      "classifierExecution": {
+        "id": "8945",
+        "status": "success",
+        "startedAt": "2026-11-24T22:16:16.236Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc/executions/8945",
+        "result": {
+          "type": "feature",
+          "confidence": 0.9
+        },
+        "structuredOutputParserRan": true
+      }
+    },
+    {
+      "title": "Добавьте уведомления о готовности экспорта",
+      "startedAt": "2026-11-24T22:16:17.732Z",
+      "httpStatus": 200,
+      "result": {
+        "classification": {
+          "type": "feature",
+          "confidence": 0.9
+        }
+      },
+      "webhookExecution": {
+        "id": "8946",
+        "status": "success",
+        "startedAt": "2026-11-24T22:16:17.786Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI/executions/8946"
+      },
+      "classifierExecution": {
+        "id": "8947",
+        "status": "success",
+        "startedAt": "2026-11-24T22:16:17.963Z",
+        "url": "https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc/executions/8947",
+        "result": {
+          "type": "feature",
+          "confidence": 0.9
+        },
+        "structuredOutputParserRan": true
+      }
+    }
+  ],
+  "model": {
+    "provider": "VseLLM",
+    "id": "openai/gpt-4.1-mini",
+    "responseFormat": "json_object"
   }
 }

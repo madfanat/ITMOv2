@@ -25,7 +25,7 @@ dist/assets/inter-latin-ext-wght-normal-DO1Apj_S.woff2      85.06 kB
 dist/assets/index-BL4m1NU0.css                             210.15 kB │ gzip: 34.02 kB
 dist/assets/index-BXu088-X.js                              310.78 kB │ gzip: 96.74 kB
 
-✓ built in 129ms
+✓ built in 226ms
 
 > itmo-issue-triage@1.0.0 test
 > playwright test
@@ -33,17 +33,17 @@ dist/assets/index-BXu088-X.js                              310.78 kB │ gzip: 9
 
 Running 8 tests using 2 workers
 
-(node:22663) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:23625) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-(node:22664) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:23624) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ✓  1 tests/triage.spec.mjs:22:1 › начальный экран, пример и счётчик описания (552ms)
-  ✓  2 tests/triage.spec.mjs:37:1 › пустой и некорректный ввод не отправляется (718ms)
-  ✓  3 tests/triage.spec.mjs:65:1 › от ввода до категории и уверенности через HTTP (520ms)
-  ✓  4 tests/triage.spec.mjs:83:1 › загрузка блокирует повторные отправки (495ms)
-  ✓  5 tests/triage.spec.mjs:111:1 › пустой результат ведёт на ручной разбор (378ms)
-  ✓  6 tests/triage.spec.mjs:121:1 › сбой API показывает ошибку и допускает повтор без потери данных (496ms)
-  ✓  7 tests/triage.spec.mjs:140:1 › нарушение контракта ответа отображается как ошибка (451ms)
-  ✓  8 tests/triage.spec.mjs:147:1 › полный клавиатурный сценарий на узком экране с видимым фокусом (426ms)
+  ✓  1 tests/triage.spec.mjs:22:1 › начальный экран, пример и счётчик описания (663ms)
+  ✓  2 tests/triage.spec.mjs:37:1 › пустой и некорректный ввод не отправляется (818ms)
+  ✓  3 tests/triage.spec.mjs:65:1 › от ввода до категории и уверенности через HTTP (502ms)
+  ✓  4 tests/triage.spec.mjs:83:1 › загрузка блокирует повторные отправки (497ms)
+  ✓  5 tests/triage.spec.mjs:111:1 › пустой результат ведёт на ручной разбор (396ms)
+  ✓  6 tests/triage.spec.mjs:121:1 › сбой API показывает ошибку и допускает повтор без потери данных (493ms)
+  ✓  7 tests/triage.spec.mjs:140:1 › нарушение контракта ответа отображается как ошибка (433ms)
+  ✓  8 tests/triage.spec.mjs:147:1 › полный клавиатурный сценарий на узком экране с видимым фокусом (350ms)
 
-  8 passed (2.9s)
+  8 passed (3.1s)

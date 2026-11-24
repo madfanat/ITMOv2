@@ -110,9 +110,9 @@ npm start
 
 ### Подключение n8n
 
-1. Опубликуйте [классификатор из практики 7.2](../practice_07.2/workflow-classifier.json) с настроенной моделью. Для стенда с Bearer Auth используйте [совместимый экспорт](workflow-classifier-vsellm.json). Он переносит промпт, модель, входы и контракт `{type, confidence}` из практики 7.2. Нода `Classify Issue via VseLLM` использует Bearer Auth для `https://litellm.data-light.ru`, запрашивает JSON и передаёт его ноде проверки структуры.
+1. Импортируйте [классификатор из практики 7.2](../practice_07.2/workflow-classifier.json). Создайте n8n credential типа OpenAI API с ключом VseLLM и Base URL `https://litellm.data-light.ru`. Назначьте её ноде `Classify Issue model`, укажите модель `openai/gpt-4.1-mini` и выберите `Response Format` → `JSON` в настройках модели. Опубликуйте Sub-workflow. Structured Output Parser проверяет структуру ответа, а выходная нода возвращает `{type, confidence}`.
 2. Импортируйте [API workflow](workflow-triage.json) в тот же проект n8n. В `Execute classifier` выберите опубликованный Sub-workflow и проверьте маппинг `title` и `body`. Создайте Header Auth credential с именем заголовка `X-Triage-Secret` и случайным секретом. Назначьте credential ноде `Protected classification webhook`.
-3. Опубликуйте API workflow, скопируйте его Production URL и заполните `.env`. На учебном стенде уже опубликованы [API workflow](https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI) и [дочерний классификатор](https://n8n-itmo.cyrweb.ru/workflow/H4bJwJ7DPu3k5024).
+3. Опубликуйте API workflow, скопируйте его Production URL и заполните `.env`. На учебном стенде уже опубликованы [API workflow](https://n8n-itmo.cyrweb.ru/workflow/fSKPIp3KxTdLHguI) и [исходный классификатор 7.2](https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc).
 
 Webhook получает `title` и `body`, ждёт ответ классификатора и применяет порог практики 7.2. Пустой результат представлен явным `null`. Клиент и сервер проверяют контракт в [общем модуле](src/contract.ts).
 
