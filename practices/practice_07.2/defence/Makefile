@@ -1,5 +1,5 @@
 REPO ?= madfanat/ITMOv2
-ISSUES ?= 12 13 14 15
+ISSUES ?= 19 20 21 22
 
 .PHONY: check inspect open-bug open-task open-feature open-unknown
 
