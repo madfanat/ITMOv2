@@ -1,0 +1,51 @@
+Временная правка: удалён рендер Alert для state.kind === error.
+Статус команды: 1. Исходник восстановлен перед полным прогоном.
+
+$ CI=1 FORCE_COLOR=0 npm test -- --grep 'сбой API показывает ошибку'
+
+> itmo-issue-triage@1.0.0 test
+> playwright test --grep сбой API показывает ошибку
+
+
+Running 1 test using 1 worker
+
+(node:21971) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 tests/triage.spec.mjs:121:1 › сбой API показывает ошибку и допускает повтор без потери данных (5.5s)
+
+
+  1) tests/triage.spec.mjs:121:1 › сбой API показывает ошибку и допускает повтор без потери данных ─
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected substring: "Не удалось получить результат"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      128 |   await submit(page).click();
+      129 |   const alert = page.getByRole('alert');
+    > 130 |   await expect(alert).toContainText('Не удалось получить результат');
+          |                       ^
+      131 |   await expect(alert).toContainText('Введённые данные сохранены.');
+      132 |   await expect(title(page)).toHaveValue(issue.title);
+      133 |   await expect(body(page)).toHaveValue(issue.body);
+        at tests/triage.spec.mjs:130:23
+
+    Error Context: test-results/triage-сбой-API-показывает-0c17a-ет-повтор-без-потери-данных/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/triage-сбой-API-показывает-0c17a-ет-повтор-без-потери-данных/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/triage-сбой-API-показывает-0c17a-ет-повтор-без-потери-данных/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    tests/triage.spec.mjs:121:1 › сбой API показывает ошибку и допускает повтор без потери данных ──

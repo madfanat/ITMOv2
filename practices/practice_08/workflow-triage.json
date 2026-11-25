@@ -1,0 +1,141 @@
+{
+  "name": "ITMO 8 · API классификации Issues",
+  "nodes": [
+    {
+      "name": "Protected classification webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "id": "ab52d430-ce09-4a3b-8e71-6c1312241e0b",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "itmo-practice-08-classify",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "9a9cddd3-7b5a-4d3e-9b09-a7adcdd6abc9"
+    },
+    {
+      "name": "Execute classifier",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "id": "6a4e44c2-9ab8-4201-91bb-aefed9d35b8b",
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "source": "database",
+        "workflowId": {
+          "__rl": true,
+          "value": "SELECT_CLASSIFIER_WORKFLOW",
+          "mode": "id"
+        },
+        "mode": "once",
+        "options": {
+          "waitForSubWorkflow": true
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "title": "={{ $json.body.title }}",
+            "body": "={{ $json.body.body }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "body",
+              "displayName": "body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      }
+    },
+    {
+      "name": "Apply triage threshold",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "id": "7ca3d61f-18f6-444b-bea6-71dfa93d7904",
+      "position": [
+        480,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const { type, confidence } = $input.first().json;\nconst known = ['bug', 'task', 'feature'].includes(type);\nif ((!known && type !== 'unknown') || typeof confidence !== 'number' || !(confidence >= 0 && confidence <= 1)) {\n  throw new Error('Unexpected classifier output');\n}\nreturn [{ json: { classification: known && confidence >= 0.8 ? { type, confidence } : null } }];"
+      }
+    },
+    {
+      "name": "Return classification JSON",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "id": "b41409dd-9a99-44db-a162-0ff0280da884",
+      "position": [
+        720,
+        0
+      ],
+      "parameters": {
+        "respondWith": "firstIncomingItem",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Protected classification webhook": {
+      "main": [
+        [
+          {
+            "node": "Execute classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute classifier": {
+      "main": [
+        [
+          {
+            "node": "Apply triage threshold",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Apply triage threshold": {
+      "main": [
+        [
+          {
+            "node": "Return classification JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Moscow"
+  }
+}
