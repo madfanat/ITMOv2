@@ -1,0 +1,242 @@
+{
+  "gateway": "VseLLM via LiteLLM",
+  "model": "openai/gpt-4.1-mini",
+  "workflows": {
+    "classifier": {
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/mSEPpLZhCzCr6qxc",
+      "published": true
+    },
+    "bugfix": {
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/wn2DdRtmluI8DH5T",
+      "published": true
+    },
+    "issues": {
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/L1cE4SoKVWNIb9iN",
+      "published": true
+    },
+    "weekly-report": {
+      "url": "https://n8n-itmo.cyrweb.ru/workflow/l3q27BriiWwP1aFq",
+      "published": true,
+      "cron": "0 9 * * MON",
+      "timezone": "Europe/Moscow"
+    }
+  },
+  "classifier": {
+    "execution": 8983,
+    "cases": [
+      {
+        "type": "bug",
+        "confidence": 0.9
+      },
+      {
+        "type": "task",
+        "confidence": 0.9
+      },
+      {
+        "type": "feature",
+        "confidence": 0.9
+      },
+      {
+        "type": "unknown",
+        "confidence": 0.7
+      }
+    ]
+  },
+  "weekly_report": {
+    "execution": 9019,
+    "nodes": [
+      "Manual report",
+      "Set report window",
+      "Opened Issues",
+      "Closed Issues",
+      "Merged pull requests",
+      "Repository issue comments",
+      "Group by type and author",
+      "Read previous week",
+      "Calculate weekly difference",
+      "Save weekly snapshot",
+      "Summarize changes model",
+      "Summarize changes",
+      "Render HTML report",
+      "Send HTML via Gmail"
+    ],
+    "window": {
+      "start": "2026-11-17T23:00:17Z",
+      "end": "2026-11-24T23:00:17Z"
+    },
+    "stats": {
+      "activity": {
+        "opened": 10,
+        "closed": 0,
+        "comments": 8,
+        "merged": 1
+      },
+      "byType": {
+        "bug": 4,
+        "task": 2,
+        "feature": 2,
+        "needs-triage": 2,
+        "unclassified": 0
+      },
+      "byAuthor": {
+        "madfanat": {
+          "total": 10,
+          "byType": {
+            "bug": 4,
+            "task": 2,
+            "feature": 2,
+            "needs-triage": 2,
+            "unclassified": 0
+          }
+        }
+      }
+    },
+    "delta": {
+      "activity": {
+        "opened": 8,
+        "closed": -1,
+        "comments": 7,
+        "merged": 1
+      },
+      "byType": {
+        "bug": 2,
+        "task": 2,
+        "feature": 2,
+        "needs-triage": 2,
+        "unclassified": 0
+      },
+      "byAuthor": {
+        "madfanat": 10,
+        "previous-example": -2
+      }
+    },
+    "leading_types": [
+      "bug"
+    ],
+    "annotation": "За неделю было открыто 10 новых Issues, что на 8 больше, чем на предыдущей неделе. Лидирующий тип новых Issues: bug.",
+    "history": [
+      {
+        "key": "madfanat/ITMOv2|manual|2026-11-18",
+        "source": "fixture"
+      },
+      {
+        "key": "madfanat/ITMOv2|manual|2026-11-25",
+        "source": "github"
+      }
+    ],
+    "gmail": {
+      "messageId": "1a20fc9f46329153",
+      "labelIds": [
+        "UNREAD",
+        "SENT",
+        "INBOX"
+      ],
+      "credentialReauthorizedAt": "2026-11-24T23:06:28.179Z",
+      "oauthPublishingStatus": "Testing"
+    },
+    "firstScheduledRun": "2026-11-30T09:00:00+03:00"
+  },
+  "github": {
+    "verifiedDirectDeliveries": {
+      "bug": {
+        "issue": "https://github.com/madfanat/ITMOv2/issues/19",
+        "execution": 8993,
+        "delivery": "3855937694521622528",
+        "deliveryGuid": "18eddb92-e85a-11f1-81a3-4a59b4c9ebd5",
+        "deliveryHttpStatus": 200,
+        "labels": [
+          "bug"
+        ],
+        "comments": 1,
+        "classification": {
+          "type": "bug",
+          "confidence": 0.9
+        },
+        "classifierExecution": 8994,
+        "duplicateExecution": 9011
+      },
+      "task": {
+        "issue": "https://github.com/madfanat/ITMOv2/issues/20",
+        "execution": 8996,
+        "delivery": "3855937696656531456",
+        "deliveryGuid": "19984bea-e85a-11f1-9e94-1639f216cffd",
+        "deliveryHttpStatus": 200,
+        "labels": [
+          "task"
+        ],
+        "comments": 1,
+        "classification": {
+          "type": "task",
+          "confidence": 0.9
+        },
+        "classifierExecution": 8997
+      },
+      "feature": {
+        "issue": "https://github.com/madfanat/ITMOv2/issues/21",
+        "execution": 9000,
+        "delivery": "3855937702140575744",
+        "deliveryGuid": "1a3d7cfa-e85a-11f1-8665-c4fcaee2ac5a",
+        "deliveryHttpStatus": 200,
+        "labels": [
+          "feature"
+        ],
+        "comments": 1,
+        "classification": {
+          "type": "feature",
+          "confidence": 0.9
+        },
+        "classifierExecution": 9003
+      },
+      "unknown": {
+        "issue": "https://github.com/madfanat/ITMOv2/issues/22",
+        "execution": 9001,
+        "delivery": "3855937702260137984",
+        "deliveryGuid": "1a95d738-e85a-11f1-9661-7fcbec8db864",
+        "deliveryHttpStatus": 200,
+        "labels": [
+          "needs-triage"
+        ],
+        "comments": 0,
+        "classification": {
+          "type": "unknown",
+          "confidence": 0.7
+        },
+        "classifierExecution": 9002
+      },
+      "autofix": {
+        "issue": "https://github.com/madfanat/ITMOv2/issues/23",
+        "execution": 9014,
+        "delivery": "3855938216087560192",
+        "deliveryGuid": "aa01429a-e85a-11f1-8812-e3446af8595e",
+        "deliveryHttpStatus": 200,
+        "labels": [
+          "bug"
+        ],
+        "comments": 1,
+        "classification": {
+          "type": "bug",
+          "confidence": 0.9
+        },
+        "classifierExecution": 9015
+      }
+    },
+    "oldLocalHookDisabled": true
+  },
+  "autofix": {
+    "execution": 9016,
+    "pr": "https://github.com/madfanat/itmo-practice-072-demo/pull/2",
+    "reviewedHead": "3c594411befcb006ab1b794b015c063dea3821e0",
+    "mergeCommit": "6402ca1e3b253e0b4833cb4f790c91d533d135b4",
+    "baseline": "c00b4f9fb3bb2a1d835733bf3b98eddfe3860888",
+    "baselineTests": {
+      "passed": 3,
+      "failed": 1,
+      "error": "TypeError"
+    },
+    "mergedTests": {
+      "passed": 4,
+      "failed": 0
+    },
+    "changedFile": "src/sum.mjs"
+  }
+}
